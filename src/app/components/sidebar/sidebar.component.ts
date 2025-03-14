@@ -1,10 +1,10 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Category } from '../../interfaces';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })
