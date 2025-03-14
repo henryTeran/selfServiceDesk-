@@ -1,9 +1,11 @@
 <!-- NAVIGATION DES CATÉGORIES -->
 <div class="categories-nav">
-    <button *ngFor="let category of Categories" (click)="onCategoryClick(category)">
+  @for (category of Categories; track category.uuid) {
+    <button (click)="onCategoryClick(category)">
       {{ category.title }}
     </button>
-  </div>
+  }
+</div>
   
  
   

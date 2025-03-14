@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { APIService } from '../../services/api.service';
 import { HeaderComponent } from '../../components/header/header.component';
 import { Category, Restaurant } from '../../interfaces';
@@ -11,7 +11,7 @@ import { RecipeComponent } from '../../components/recipe/recipe.component';
 
 @Component({
   selector: 'app-order-page',
-  imports: [CommonModule, HeaderComponent, SidebarComponent, FooterComponent, RecipeComponent], // Ajoute CommonModule pour activer *ngIf
+  imports: [HeaderComponent, SidebarComponent, FooterComponent, RecipeComponent], // Ajoute CommonModule pour activer *ngIf
   templateUrl: './order-page.html',
   styleUrls: ['./order-page.css']
 })

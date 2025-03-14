@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { Restaurant } from '../../interfaces';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-header',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
