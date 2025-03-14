@@ -1,0 +1,6 @@
+ <!-- BLOC PRINCIPAL - Restaurant -->
+ <div class="restaurant-header" *ngIf="RestoInfo">
+    <img [src]=RestoInfo.photo alt="Restaurant Image">
+    <h1>{{ RestoInfo.title }}</h1>
+    <p>{{ RestoInfo.location }} - Livraison : {{ RestoInfo.etaRange }}</p>
+  </div> 

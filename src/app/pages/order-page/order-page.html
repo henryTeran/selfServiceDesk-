@@ -1,0 +1,24 @@
+<div class="order-container">
+  <app-header [RestoInfo]="RestoInfo"></app-header>
+  <app-sidebar [Categories]="Categories" (selectCategory)="selectCategory($event)"></app-sidebar>
+  <app-recipe [selectedCategory]="selectedCategory" ></app-recipe>
+  <div class="order-button"> 
+    <app-footer ></app-footer>
+  </div>
+</div>
+
+
+
+
+
+
+ <!-- PANIER (avec les produits ajoutés)
+<div class="cart">
+  <h2>🛒 Panier</h2>
+  <div *ngFor="let item of cart" class="cart-item">
+    <span>{{ item.title }} ({{ item.price }} CHF)</span>
+    <button (click)="removeFromCart(item)">❌</button>
+  </div>
+  <p *ngIf="cart.length === 0">Votre panier est vide</p>
+  <button *ngIf="cart.length > 0" class="checkout-btn">Commander</button>
+</div> -->

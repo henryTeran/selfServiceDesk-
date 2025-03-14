@@ -1,0 +1,14 @@
+ <!-- AFFICHAGE DES PRODUITS DE LA CATÉGORIE SÉLECTIONNÉE -->
+ <div *ngIf="selectedCategory" class="products-container">
+    <h2>{{ selectedCategory.title }}</h2>
+  
+    <div class="products">
+      <div *ngFor="let recipe of selectedCategory.recipes" class="product-card">
+        <h3>{{ recipe.title }}</h3>
+        <img [src]="recipe.imageUrl" alt="{{ recipe.title }}">
+        <p>{{ recipe.description }}</p>
+        <p><strong>{{ recipe.price }} CHF</strong></p>
+        <!-- <button (click)="addToCart(recipe)">Ajouter</button> -->
+      </div>
+    </div>
+  </div>

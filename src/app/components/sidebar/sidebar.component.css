@@ -1,0 +1,35 @@
+/* 📌 Sidebar */
+.categories-nav {
+
+  width: 220px;
+  background-color: black;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-right: 2px solid #444;
+  height: 100vh; /* ✅ Fixe la hauteur pour éviter l'espace blanc en bas */
+  overflow-y: auto; /* ✅ Permet de scroller si trop de catégories */
+
+}
+
+.categories-nav button {
+  background-color: transparent;
+  color: white;
+  border: 1px solid #444;
+  padding: 12px;
+  text-align: left;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 5px;
+}
+
+.categories-nav button:hover {
+  background-color: #333;
+  border: 1px solid white;
+}
