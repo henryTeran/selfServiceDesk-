@@ -11,4 +11,6 @@ import { Category } from '../../interfaces';
 export class RecipeComponent {
   @Input() public selectedCategory?: Category;
 
+  
+
 }
