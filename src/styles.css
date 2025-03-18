@@ -1,1 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+/* ✅ Définition des couleurs principales */
+:root {
+    --bg-color: #f9f9f9;
+    --text-color: #222;
+    --primary-color: #e60000;
+    --card-bg: #fff;
+}
+
+/* ✅ Mode sombre */
+.dark-mode {
+    --bg-color: #181818;
+    --text-color: #f5f5f5;
+    --primary-color: #ff4500;
+    --card-bg: #222;
+}
+
+/* ✅ Application des couleurs */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.product-card {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+}

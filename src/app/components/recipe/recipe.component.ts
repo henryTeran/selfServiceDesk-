@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Category, Recipe } from '../../interfaces';
+import { NotificationService } from '../../services/notifications/notification.service';
 
 
 @Component({
@@ -13,12 +14,11 @@ export class RecipeComponent {
   @Output() selectRecipe = new EventEmitter<Recipe>();
   public selectedRecipe: Recipe[] = [];
   
+  constructor(private notificationService: NotificationService) {}
   addToCart(recipe: Recipe) {
     this.selectRecipe.emit(recipe);  
+    this.notificationService.addMessage(`${recipe.title} ajouté au panier !`);
+    console.log(this.notificationService.messages)
+
   }
- 
-
-
-  
-
 }

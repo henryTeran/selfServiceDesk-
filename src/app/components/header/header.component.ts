@@ -11,5 +11,7 @@ import { Restaurant } from '../../interfaces';
 export class HeaderComponent {
   @Input() public RestoInfo?: Pick<Restaurant, 'title' | 'photo' | 'etaRange' | 'location'>;
 
-
+  toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+}
 }
