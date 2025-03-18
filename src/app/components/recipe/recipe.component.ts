@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { Category } from '../../interfaces';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Category, Recipe } from '../../interfaces';
 
 
 @Component({
@@ -10,6 +10,14 @@ import { Category } from '../../interfaces';
 })
 export class RecipeComponent {
   @Input() public selectedCategory?: Category;
+  @Output() selectRecipe = new EventEmitter<Recipe>();
+  public selectedRecipe: Recipe[] = [];
+  
+  addToCart(recipe: Recipe) {
+    this.selectRecipe.emit(recipe);  
+  }
+ 
+
 
   
 

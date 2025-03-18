@@ -1,0 +1,19 @@
+<p>cart works!</p>
+   <!-- PANIER (avec les produits ajoutés) -->
+<div class="cart">
+  <h2>🛒 Panier</h2>
+  @for (item of selectedRecipe; track item) {
+    <div class="cart-item">
+        <span>{{ item.title }} ({{ item.price }} CHF)</span>
+        <!-- <button (click)="removeFromCart(item)">❌</button> -->
+    </div>
+    }
+  @if (selectedRecipe.length === 0) {
+
+      <p >Votre panier est vide</p>
+  }  
+  @if (selectedRecipe.length > 0) {
+      
+      <button class="checkout-btn">Commander</button>
+  }
+</div> 

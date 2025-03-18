@@ -1,0 +1,12 @@
+.cart {
+    position: absolute; /* Pour le placer par rapport au parent */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centre le panier */
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    width: 400px; /* Ajuste selon tes besoins */
+    z-index: 1000; /* S'assurer qu'il passe au-dessus */
+}
