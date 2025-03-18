@@ -1,7 +1,8 @@
 <div class="order-container">
   <app-header [RestoInfo]="RestoInfo"></app-header>
   <app-sidebar [Categories]="Categories" (selectCategory)="selectCategory($event)"></app-sidebar>
-  <app-recipe [selectedCategory]="selectedCategory" ></app-recipe>
+  <app-recipe [selectedCategory]="selectedCategory" (selectRecipe)="addRecipeToCart($event)"></app-recipe>
+  <app-cart [selectedRecipe]="selectedRecipe"></app-cart>
   <div class="order-button"> 
     <app-footer ></app-footer>
   </div>

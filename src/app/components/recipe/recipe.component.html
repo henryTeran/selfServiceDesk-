@@ -10,19 +10,10 @@
             <img [src]="recipe.imageUrl" alt="{{ recipe.title }}">
             <p>{{ recipe.description }}</p>
             <p><strong>{{ recipe.price }} CHF</strong></p>
-            <!-- <button (click)="addToCart(recipe)">Ajouter</button> -->
+            <button (click)="addToCart(recipe)">Ajouter</button>
+            <!-- <app-cart [selectedRecipe]="selectedRecipe"></app-cart> -->
           </div>
         }
       </div>
     </div>
   }
-   <!-- PANIER (avec les produits ajoutés) -->
-<!-- <div class="cart">
-  <h2>🛒 Panier</h2>
-  <div *ngFor="let item of cart" class="cart-item">
-    <span>{{ item.title }} ({{ item.price }} CHF)</span>
-    <button (click)="removeFromCart(item)">❌</button>
-  </div>
-  <p *ngIf="cart.length === 0">Votre panier est vide</p>
-  <button *ngIf="cart.length > 0" class="checkout-btn">Commander</button>
-</div>  -->
