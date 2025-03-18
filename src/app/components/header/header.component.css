@@ -1,14 +1,44 @@
-/* 🏠 HEADER DU RESTAURANT */
+/* ✅ Conteneur principal */
 .restaurant-header {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 20px;
-    background: rgb(153, 28, 28);
+    background: linear-gradient(135deg, #8b0000, #e60000);
     color: white;
-    
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 1200px;
+    margin: auto;
+    margin-top: 10px;
+}
 
-  }
-  
-  .restaurant-header img {
+/* ✅ Image du restaurant */
+.restaurant-header img {
     width: 100px;
-    border-radius: 50%;
-  }
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* ✅ Effet au survol */
+.restaurant-header img:hover {
+    transform: scale(1.1);
+}
+
+/* ✅ Infos du restaurant */
+.restaurant-info {
+    flex: 1;
+    margin-left: 20px;
+}
+
+.restaurant-info h1 {
+    font-size: 24px;
+    margin: 5px 0;
+}
+
+.restaurant-info p {
+    font-size: 14px;
+    opacity: 0.8;
+}

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { APIService } from '../../services/api.service';
 import { HeaderComponent } from '../../components/header/header.component';
 import { Category, Recipe, Restaurant } from '../../interfaces';
@@ -7,15 +6,16 @@ import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { RecipeComponent } from '../../components/recipe/recipe.component';
 import { CartComponent } from '../../components/cart/cart.component';
-
-
+import { NotificationComponent } from '../../components/notification/notification.component';
 
 @Component({
   selector: 'app-order-page',
-  imports: [HeaderComponent, SidebarComponent, FooterComponent, RecipeComponent, CartComponent ], // Ajoute CommonModule pour activer *ngIf
+  imports: [HeaderComponent, SidebarComponent, FooterComponent, RecipeComponent, CartComponent, NotificationComponent], 
   templateUrl: './order-page.html',
   styleUrls: ['./order-page.css']
 })
+
+
 export class OrderPage implements OnInit {
   public RestoInfo? : Pick<Restaurant, 'title' | 'photo' | 'etaRange' | 'location'>;
   public Categories: Category[] = [];
@@ -23,10 +23,11 @@ export class OrderPage implements OnInit {
   public selectedRecipe: Recipe[] = [];
 
 
-  constructor() {}
+
+  constructor(private readonly _apiService: APIService) {}
 
   async ngOnInit()  {
-    const result = await new APIService().getRecipes();
+    const result = await this._apiService.getRecipeWithHpptRequest();
     console.log(result);
     if (result === undefined) {
       return;
@@ -41,26 +42,25 @@ export class OrderPage implements OnInit {
     if (result.data && Array.isArray(result.data)) {
       this.Categories = result.data; // Stocke des objets Category entiers
     }
-    console.log(this.Categories);
-
-    this.selectedCategory = new APIService().selectedCategory ?? undefined;
-      console.log(this.selectedCategory);
-
-    this.selectedRecipe = []; // Initialize as an empty array or assign the correct value
   }
    // Fonction appelée lors du clic sur une catégorie
-   selectCategory(category: Category) {
+  selectCategory(category: Category) {
     this.selectedCategory = category;
-    new APIService().selectCategory(category);
+    this._apiService.selectCategory(category);
     console.log('Catégorie sélectionnée:', this.selectedCategory);
   }
 
+  // Fonction appelée lors du clic sur un recete à ajouter au cart
   addRecipeToCart(recipe: Recipe) {
     if (!this.selectedRecipe) {
       this.selectedRecipe = []; // Assure qu'on a bien un tableau
     }
-    this.selectedRecipe.push(recipe);
-    console.log('Selected Recipes:', this.selectedRecipe);
+    this.selectedRecipe = this._apiService.addToCart(recipe);
+    console.log("Return servie", this.selectedRecipe);
+  }
+
+  removeFromCart (recipe: Recipe) {
+    this.selectedRecipe = this._apiService.removeFromCart(recipe); 
   }
   
   

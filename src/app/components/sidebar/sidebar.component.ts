@@ -12,8 +12,15 @@ export class SidebarComponent {
   @Input() public Categories?: Category[];
   @Output() selectCategory = new EventEmitter<Category>();
 
+  sidebarOpen = false; // Caché par défaut sur mobile
+
+  toggleSidebar() {
+    this.sidebarOpen = !this.sidebarOpen;
+  }
+
   onCategoryClick(category: Category) {
     this.selectCategory.emit(category);
+    this.sidebarOpen = false; // Ferme la sidebar après sélection sur mobile
   }
 
 }

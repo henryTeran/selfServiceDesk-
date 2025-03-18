@@ -1,16 +1,22 @@
-<div class="order-container">
+<div class="order-page">
+  <app-notification></app-notification>
+
+  <!-- HEADER -->
   <app-header [RestoInfo]="RestoInfo"></app-header>
-  <app-sidebar [Categories]="Categories" (selectCategory)="selectCategory($event)"></app-sidebar>
-  <app-recipe [selectedCategory]="selectedCategory" (selectRecipe)="addRecipeToCart($event)"></app-recipe>
-  <app-cart [selectedRecipe]="selectedRecipe"></app-cart>
-  <div class="order-button"> 
-    <app-footer ></app-footer>
+
+  <div class="main-layout">
+      <!-- SIDEBAR À GAUCHE -->
+      <app-sidebar [Categories]="Categories" (selectCategory)="selectCategory($event)"></app-sidebar>
+
+      <!-- CONTENU PRINCIPAL (Produits) -->
+      <div class="content">
+          <app-recipe [selectedCategory]="selectedCategory" (selectRecipe)="addRecipeToCart($event)"></app-recipe>
+      </div>
+
+      <!-- PANIER À DROITE -->
+      <app-cart [selectedRecipe]="selectedRecipe" (removeSelectFromCart)="removeFromCart($event)"></app-cart>
   </div>
+
+  <!-- FOOTER -->
+  <app-footer></app-footer>
 </div>
-
-
-
-
-
-
-

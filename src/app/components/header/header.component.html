@@ -1,8 +1,10 @@
- <!-- BLOC PRINCIPAL - Restaurant -->
-  @if (RestoInfo) {
-  <div class="restaurant-header">
-      <img [src]=RestoInfo.photo alt="Restaurant Image">
-      <h1>{{ RestoInfo.title }}</h1>
-      <p>{{ RestoInfo.location }} - Livraison : {{ RestoInfo.etaRange }}</p>
-    </div> 
-  }
+@if (RestoInfo) {
+   <header class="restaurant-header"> 
+       <img [src]="RestoInfo.photo" alt="Restaurant Image">
+       <div class="restaurant-info">
+           <h1>{{ RestoInfo.title }}</h1>
+           <p>{{ RestoInfo.location }} - Livraison : {{ RestoInfo.etaRange }}</p>
+       </div>
+       <button class="dark-mode-btn" (click)="toggleDarkMode()">🌙</button>
+   </header>
+}

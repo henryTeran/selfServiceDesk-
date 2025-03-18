@@ -1,11 +1,13 @@
-<!-- NAVIGATION DES CATÉGORIES -->
-<div class="categories-nav">
-  @for (category of Categories; track category.uuid) {
-    <button (click)="onCategoryClick(category)">
-      {{ category.title }}
-    </button>
-  }
-</div>
-  
- 
-  
+<!-- ✅ Bouton pour ouvrir la sidebar -->
+<button class="sidebar-toggle-btn" (click)="toggleSidebar()">📖</button>
+
+<!-- ✅ Sidebar avec animation -->
+<aside class="sidebar" [class.open]="sidebarOpen">
+    <nav class="categories-nav">
+        @for (category of Categories; track category.uuid) {
+            <button (click)="onCategoryClick(category)">
+                📌 {{ category.title }}
+            </button>
+        }
+    </nav>
+</aside>
