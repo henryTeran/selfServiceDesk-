@@ -7,24 +7,32 @@ import { FooterComponent } from '../../components/footer/footer.component';
 import { RecipeComponent } from '../../components/recipe/recipe.component';
 import { CartComponent } from '../../components/cart/cart.component';
 import { NotificationComponent } from '../../components/notification/notification.component';
+import { map, Observable } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-order-page',
-  imports: [HeaderComponent, SidebarComponent, FooterComponent, RecipeComponent, CartComponent, NotificationComponent], 
+  imports: [HeaderComponent, SidebarComponent, FooterComponent, RecipeComponent, CartComponent, NotificationComponent, CommonModule], 
   templateUrl: './order-page.html',
   styleUrls: ['./order-page.css']
 })
 
 
 export class OrderPage implements OnInit {
-  public RestoInfo? : Pick<Restaurant, 'title' | 'photo' | 'etaRange' | 'location'>;
-  public Categories: Category[] = [];
+  public RestoInfo? : Restaurant;
+  public Categories$: Observable<Category [] | undefined>;
   public selectedCategory?: Category;
   public selectedRecipe: Recipe[] = [];
 
 
 
-  constructor(private readonly _apiService: APIService) {}
+  constructor(private readonly _apiService: APIService) {
+     this.Categories$ = this._apiService.data$.pipe(
+      map((data) =>{
+        return data?.data;
+      })
+     );
+  }
 
   async ngOnInit()  {
     const result = await this._apiService.getRecipeWithHpptRequest();
@@ -32,16 +40,11 @@ export class OrderPage implements OnInit {
     if (result === undefined) {
       return;
     }
-    this.RestoInfo = { 
-      title: result.title ,
-      photo: result.photo,
-      etaRange: result.etaRange,
-      location: result.location,
-    }
+    this.RestoInfo = result;
 
-    if (result.data && Array.isArray(result.data)) {
-      this.Categories = result.data; // Stocke des objets Category entiers
-    }
+    // if (result.data && Array.isArray(result.data)) {
+    //   this.Categories = result.data; // Stocke des objets Category entiers
+    // }
   }
    // Fonction appelée lors du clic sur une catégorie
   selectCategory(category: Category) {

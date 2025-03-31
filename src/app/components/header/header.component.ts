@@ -9,7 +9,7 @@ import { Restaurant } from '../../interfaces';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-  @Input() public RestoInfo?: Pick<Restaurant, 'title' | 'photo' | 'etaRange' | 'location'>;
+  @Input() public RestoInfo?: Restaurant;
 
   toggleDarkMode() {
     document.body.classList.toggle('dark-mode');

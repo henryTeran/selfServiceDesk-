@@ -1,15 +1,16 @@
 
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Category } from '../../interfaces';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
-  @Input() public Categories?: Category[];
+  @Input() public Categories!: Category[];
   @Output() selectCategory = new EventEmitter<Category>();
 
   sidebarOpen = false; // Caché par défaut sur mobile
