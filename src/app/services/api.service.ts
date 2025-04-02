@@ -12,6 +12,7 @@ export class APIService  {
   selectedCategory: Category | null = null;
   selectedRecipe: Recipe[] = [];
   loading = true;
+
   private readonly _data$ = new BehaviorSubject<Restaurant | null>(null); 
   public readonly data$ = this._data$.asObservable();
 
@@ -31,6 +32,7 @@ export class APIService  {
 
   async getRecipeWithHpptRequest(): Promise<Restaurant | undefined> { // Correction du nom de la méthode
     const existingData = this._data$.value;
+    console.log("existingData", existingData);
     if (existingData) {
       return existingData;
     }

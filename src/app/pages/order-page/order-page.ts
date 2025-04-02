@@ -10,7 +10,6 @@ import { NotificationComponent } from '../../components/notification/notificatio
 import { map, Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FirebeseApiService } from '../../services/firebese-api.service';
-import { addDoc, collection, Firestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-order-page',
@@ -28,7 +27,10 @@ export class OrderPage implements OnInit {
 
 
 
-  constructor(private readonly _apiService: APIService, private readonly _firebaseService: FirebeseApiService, private firestore: Firestore) {
+  constructor(
+    private readonly _apiService: APIService, 
+    private readonly _firebaseService: FirebeseApiService, 
+    ) {
      this.Categories$ = this._apiService.data$.pipe(
       map((data) =>{
         return data?.data;
@@ -43,20 +45,6 @@ export class OrderPage implements OnInit {
       return;
     }
     this.RestoInfo = result;
-   
-        // try {
-        //   const testRef = collection(this.firestore, 'test-orders');
-        //   const res = await addDoc(testRef, {
-        //     title: 'Pizza test',
-        //     price: 10,
-        //     date: new Date()
-        //   });
-        //   console.log('✅ Test écrit dans Firestore avec ID :', res.id);
-        // } catch (err) {
-        //   console.error('❌ Firestore write test failed:', err);
-        // }
-  
-
   }
    // Fonction appelée lors du clic sur une catégorie
   selectCategory(category: Category) {

@@ -1,0 +1,11 @@
+<p>home-page works!</p>
+@if (RestoInfo) {
+    <div class="restaurant-home"> 
+        <img [src]="RestoInfo.photo" alt="Restaurant Image">
+        <div class="restaurant-info">
+            <h1>{{ RestoInfo.title }}</h1>
+            <p>{{ RestoInfo.location }} - Livraison : {{ RestoInfo.etaRange }}</p>
+        </div>
+    </div>
+ }
+<button class="Btn_Home_Open" (click)="navige('/order')">Commencer</button>

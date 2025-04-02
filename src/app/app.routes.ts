@@ -1,10 +1,11 @@
 import { Routes } from '@angular/router';
 import { OrderPage } from './pages/order-page/order-page';
+import { HomePageComponent } from './pages/home-page/home-page.component';
 
 export const routes: Routes = [
     {
-        path: 'order',
-        component: OrderPage,
+        path: 'home',
+        component: HomePageComponent,
     },
     {
         path: 'order',
