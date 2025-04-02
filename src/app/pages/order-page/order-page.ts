@@ -81,5 +81,6 @@ export class OrderPage implements OnInit {
     this.selectedRecipe = []; // vider le panier si tu veux
   }
   
+
   
 }
