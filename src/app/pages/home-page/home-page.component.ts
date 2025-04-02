@@ -24,11 +24,9 @@ export class HomePageComponent implements OnInit{
     
   }
 
-  navige(path: string): void {
+  navigate(path: string): void {
     console.log(path);
     this.router.navigate([path]);
   }
-
-  
 
 }

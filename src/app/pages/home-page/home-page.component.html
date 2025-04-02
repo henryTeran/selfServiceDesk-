@@ -1,11 +1,14 @@
-<p>home-page works!</p>
+
 @if (RestoInfo) {
-    <div class="restaurant-home"> 
-        <img [src]="RestoInfo.photo" alt="Restaurant Image">
-        <div class="restaurant-info">
-            <h1>{{ RestoInfo.title }}</h1>
-            <p>{{ RestoInfo.location }} - Livraison : {{ RestoInfo.etaRange }}</p>
+    <div class="home-container">
+        <div class="promo-section">
+          <img class="promo-img" [src]="RestoInfo.photo" alt="Restaurant">
         </div>
-    </div>
+      
+        <div class="cta-section">
+          <h1>{{ RestoInfo.title }}</h1>
+          <p>{{ RestoInfo.location }} - Livraison : {{ RestoInfo.etaRange }}</p>
+          <button class="start-btn" (click)="navigate('/order')">🍔 Commencer ma commande</button>
+        </div>
+      </div>
  }
-<button class="Btn_Home_Open" (click)="navige('/order')">Commencer</button>
