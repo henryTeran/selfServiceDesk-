@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { APIService } from '../../services/api.service';
 import { HeaderComponent } from '../../components/header/header.component';
-import { Category, Recipe, Restaurant } from '../../interfaces';
+import { Category, Recipe, Restaurant, SimplifiedRecipe } from '../../interfaces';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { RecipeComponent } from '../../components/recipe/recipe.component';
@@ -9,6 +9,8 @@ import { CartComponent } from '../../components/cart/cart.component';
 import { NotificationComponent } from '../../components/notification/notification.component';
 import { map, Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { FirebeseApiService } from '../../services/firebese-api.service';
+import { addDoc, collection, Firestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-order-page',
@@ -26,7 +28,7 @@ export class OrderPage implements OnInit {
 
 
 
-  constructor(private readonly _apiService: APIService) {
+  constructor(private readonly _apiService: APIService, private readonly _firebaseService: FirebeseApiService, private firestore: Firestore) {
      this.Categories$ = this._apiService.data$.pipe(
       map((data) =>{
         return data?.data;
@@ -41,10 +43,20 @@ export class OrderPage implements OnInit {
       return;
     }
     this.RestoInfo = result;
+   
+        // try {
+        //   const testRef = collection(this.firestore, 'test-orders');
+        //   const res = await addDoc(testRef, {
+        //     title: 'Pizza test',
+        //     price: 10,
+        //     date: new Date()
+        //   });
+        //   console.log('✅ Test écrit dans Firestore avec ID :', res.id);
+        // } catch (err) {
+        //   console.error('❌ Firestore write test failed:', err);
+        // }
+  
 
-    // if (result.data && Array.isArray(result.data)) {
-    //   this.Categories = result.data; // Stocke des objets Category entiers
-    // }
   }
    // Fonction appelée lors du clic sur une catégorie
   selectCategory(category: Category) {
@@ -64,6 +76,21 @@ export class OrderPage implements OnInit {
 
   removeFromCart (recipe: Recipe) {
     this.selectedRecipe = this._apiService.removeFromCart(recipe); 
+  }
+
+  
+  async saveOrder(recipes: Recipe[]) {
+    const orderDataFormat: SimplifiedRecipe[] = recipes.map(r => ({
+      uuid: r.uuid,
+      title: r.title,
+      description: r.description,
+      price: r.price,
+      imageUrl: r.imageUrl
+    }));
+  
+    const result = await this._firebaseService.saveOrder(orderDataFormat);
+    console.log('Commandes enregistrées :', result);
+    this.selectedRecipe = []; // vider le panier si tu veux
   }
   
   

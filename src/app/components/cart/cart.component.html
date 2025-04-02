@@ -18,6 +18,6 @@
     }
 
     @if (selectedRecipe.length > 0) {
-        <button class="checkout-btn">Commander</button>
+        <button class="checkout-btn" (click)="saveOrderFromCart(selectedRecipe)">Commander</button>
     }
 </div>

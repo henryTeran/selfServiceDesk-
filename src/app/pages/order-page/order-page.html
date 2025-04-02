@@ -15,7 +15,7 @@
       </div>
 
       <!-- PANIER À DROITE -->
-      <app-cart [selectedRecipe]="selectedRecipe" (removeSelectFromCart)="removeFromCart($event)"></app-cart>
+      <app-cart [selectedRecipe]="selectedRecipe" (removeSelectFromCart)="removeFromCart($event)" (saveOrder) = "saveOrder($event)"></app-cart>
   </div>
 
   <!-- FOOTER -->

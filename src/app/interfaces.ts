@@ -29,6 +29,8 @@ export interface Recipe {
   tagSection: TagSection | null;
 }
 
+export type SimplifiedRecipe = Pick<Recipe, 'uuid' | 'title' | 'description' | 'price'>;
+
 export interface NutritionalInfo {
   allergens: string;
   displayString: string;
