@@ -1,14 +1,16 @@
-
 @if (RestoInfo) {
-    <div class="home-container">
-        <div class="promo-section">
-          <img class="promo-img" [src]="RestoInfo.photo" alt="Restaurant">
-        </div>
-      
-        <div class="cta-section">
-          <h1>{{ RestoInfo.title }}</h1>
-          <p>{{ RestoInfo.location }} - Livraison : {{ RestoInfo.etaRange }}</p>
-          <button class="start-btn" (click)="navigate('/order')">🍔 Commencer ma commande</button>
-        </div>
+  <div class="home-container">
+    <div class="background" [style.backgroundImage]="'url(' + RestoInfo.photo + ')'">
+      <div class="cta-section">
+        <h1>{{ RestoInfo.title }}</h1>
+        
+        <!-- Image doigt centrée -->
+        <img src="assets/hand.png" alt="Touchez l'écran" class="touch-icon" />
+        <p>Toucher l'ecran pour commencer ! </p>
+
+        <!-- Bouton transparent sur tout l'écran -->
+        <button class="start-btn-fullscreen" (click)="navigate('/choiseOrder')"></button>
       </div>
- }
+    </div>
+  </div>
+}

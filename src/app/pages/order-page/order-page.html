@@ -2,7 +2,10 @@
   <app-notification></app-notification>
 
   <!-- HEADER -->
-  <app-header [RestoInfo]="RestoInfo"></app-header>
+   @if(RestoInfo$ | async; as RestoInfo){
+
+     <app-header [RestoInfo]="RestoInfo"></app-header>
+   }
 
   <div class="main-layout">
       <!-- SIDEBAR À GAUCHE -->
@@ -20,5 +23,6 @@
 
   <!-- FOOTER -->
   <app-footer></app-footer>
+
+  <p>Route actuelle : {{ currentRoute$ | async }}</p>
 </div>
- 

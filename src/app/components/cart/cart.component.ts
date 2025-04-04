@@ -19,29 +19,30 @@ export class CartComponent {
   toggleCart() {
     this.cartOpen = !this.cartOpen;
   }
-  
-  test = this.selectedRecipe; 
-  
+ 
   constructor(
-    private notificationService: NotificationService,
-    private readonly _apiFirebase: FirebeseApiService) {
-      console.log('test' , this.test); 
-    }
+    private readonly _notificationService: NotificationService,
+    private readonly _apiFirebase: FirebeseApiService
+  ) {}
+
     
     
   removeFromCart(recipe: Recipe) {
     this.removeSelectFromCart.emit(recipe);
-    this.notificationService.addMessage(`${recipe.title} retiré du panier !`);
-    console.log(this.notificationService.messages);
+    this._notificationService.show(`${recipe.title} retiré du panier !`);
+    console.log(this._notificationService.messages);
    }
 
-   saveOrderFromCart(recipe:Recipe[]) {
+  saveOrderFromCart(recipe:Recipe[]) {
     this.saveOrder.emit(recipe);
     console.log("bouton licl")
 
-   }
+  }
 
-
+  getTotalPrice(): number {
+    return this.selectedRecipe.reduce((sum, item) => sum + item.price, 0);
+  }
+  
 
 
 }

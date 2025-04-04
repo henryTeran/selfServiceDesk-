@@ -46,10 +46,8 @@ body {
 }
 
 .custom-snackbar {
-    /* background-color: var(--snack-bg-color) !important;
-    color: var(--snack-text-color) !important;
-    font-weight: bold;
+    background-color: green;
+    color: white;
     border-radius: 8px;
-    padding: 12px 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); 
   }

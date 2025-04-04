@@ -7,9 +7,10 @@ import { FooterComponent } from '../../components/footer/footer.component';
 import { RecipeComponent } from '../../components/recipe/recipe.component';
 import { CartComponent } from '../../components/cart/cart.component';
 import { NotificationComponent } from '../../components/notification/notification.component';
-import { map, Observable } from 'rxjs';
+import { firstValueFrom, map, Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FirebeseApiService } from '../../services/firebese-api.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-order-page',
@@ -20,31 +21,37 @@ import { FirebeseApiService } from '../../services/firebese-api.service';
 
 
 export class OrderPage implements OnInit {
-  public RestoInfo? : Restaurant;
-  public Categories$: Observable<Category [] | undefined>;
+  public RestoInfo$!: Observable<Restaurant | null>;
+  public Categories$!: Observable<Category[] | undefined>;
   public selectedCategory?: Category;
   public selectedRecipe: Recipe[] = [];
-
-
+  public currentRoute$!: Observable<string>; // Observable pour la route actuelle
 
   constructor(
     private readonly _apiService: APIService, 
     private readonly _firebaseService: FirebeseApiService, 
-    ) {
-     this.Categories$ = this._apiService.data$.pipe(
-      map((data) =>{
+    private readonly _activatedRoute: ActivatedRoute
+  ) { }
+
+  ngOnInit()  {
+    this.Categories$ = this._apiService.data$.pipe(
+      map((data) => {
         return data?.data;
       })
-     );
-  }
+    );
 
-  async ngOnInit()  {
-    const result = await this._apiService.getRecipeWithHpptRequest();
-    console.log(result);
-    if (result === undefined) {
-      return;
-    }
-    this.RestoInfo = result;
+    this.RestoInfo$ = this._apiService.data$;
+
+  // Ou version avec firstValueFrom
+  firstValueFrom(this._activatedRoute.paramMap).then(params => {
+    const uuid = params.get('uuid');
+    console.log('From firstValueFrom →', uuid);
+  });
+
+  // demander pour le  shareReplay(1)
+
+
+   
   }
    // Fonction appelée lors du clic sur une catégorie
   selectCategory(category: Category) {

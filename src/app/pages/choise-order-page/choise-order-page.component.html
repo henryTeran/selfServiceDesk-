@@ -1,0 +1,14 @@
+@if (RestoInfo) {
+    <div class="background" [style.backgroundImage]="'url(' + RestoInfo.photo + ')'">
+        <div class="overlay">
+            <h1>Choisissez votre option</h1>
+            <div class="choices">
+                @for (choice of choices; track choice) {
+                    <button (click)="selectChoice(choice)">
+                        {{ choice }}
+                    </button>
+                }
+            </div>
+        </div>
+    </div>
+}
