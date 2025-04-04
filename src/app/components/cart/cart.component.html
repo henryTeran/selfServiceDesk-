@@ -1,23 +1,32 @@
-<!--  BOUTON POUR OUVRIR/FERMER LE PANIER -->
-<button class="cart-toggle-btn" (click)="toggleCart()">🛒</button>
+<div class="cart-overlay" [class.show]="cartOpen" (click)="toggleCart()"></div>
 
-<!--  PANIER AVEC CLASSE DYNAMIQUE -->
 <div class="cart" [class.open]="cartOpen">
-    <h2>🛒 Panier</h2>
-    <button (click)="toggleCart()">❌ Fermer</button>
+  <div class="cart-header">
+    <h2>🛒 Votre commande</h2>
+    <button class="close-btn" (click)="toggleCart()">✖</button>
+  </div>
 
+  <div class="cart-items">
     @for (item of selectedRecipe; track item.uuid) {
-        <div class="cart-item">
-            <span>{{ item.title }} ({{ item.price }} CHF)</span>
-            <button (click)="removeFromCart(item)">❌</button>
+      <div class="cart-item">
+        <img src="{{ item.imageUrl }}" alt="{{ item.title }}" />
+        <div class="item-info">
+          <h4>{{ item.title }}</h4>
+          <p>{{ item.price }} CHF</p>
         </div>
+        <button class="remove-btn" (click)="removeFromCart(item)">✖</button>
+      </div>
     }
 
     @if (selectedRecipe.length === 0) {
-        <p>Votre panier est vide</p>
+      <p class="empty-cart">Votre panier est vide</p>
     }
+  </div>
 
-    @if (selectedRecipe.length > 0) {
-        <button class="checkout-btn" (click)="saveOrderFromCart(selectedRecipe)">Commander</button>
-    }
+  @if (selectedRecipe.length > 0) {
+    <div class="cart-footer">
+      <div class="total">Total : {{ getTotalPrice() }} CHF</div>
+      <button class="checkout-btn" (click)="saveOrderFromCart(selectedRecipe)">Commander</button>
+    </div>
+  }
 </div>

@@ -9,13 +9,8 @@ import { NotificationService } from './services/notifications/notification.servi
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   constructor(
     private idleService: IdleService,
-    private notif: NotificationService
   ){}
-
-  ngOnInit() {
-    this.notif.show('Test de notification !');
-  }
 }

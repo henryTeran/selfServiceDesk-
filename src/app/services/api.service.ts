@@ -14,7 +14,9 @@ export class APIService  {
   loading = true;
 
   private readonly _data$ = new BehaviorSubject<Restaurant | null>(null); 
+  private readonly _photoResto$ = new BehaviorSubject <string>(""); 
   public readonly data$ = this._data$.asObservable();
+  public readonly photoResto$ = this._photoResto$.asObservable(); 
 
  
   constructor(private readonly http : HttpClient) {}
@@ -42,6 +44,7 @@ export class APIService  {
       const request = this.http.get<Restaurant>(url);
       const response = await firstValueFrom(request);
       this._data$.next(response);
+      this._photoResto$.next(response.photo);
       return response;
     } catch (error) {
       console.error('Erreur lors du chargement des données :', error);

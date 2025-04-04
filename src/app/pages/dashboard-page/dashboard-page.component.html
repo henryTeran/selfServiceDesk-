@@ -1,0 +1,18 @@
+@if(photo$ | async; as photo) {
+    <div class="background" [style.backgroundImage]="'url(' + photo + ')'">
+      <div class="overlay"></div>
+  
+      <h1 class="title">Choisis ton menu !</h1>
+  
+      @if (categories$ | async; as categories) {
+        <div class="menu-grid">
+          @for (cat of categories; track cat.uuid) {
+            <div class="menu-item" [attr.data-category]="cat.name" (click)="onMenuItemClick(cat.uuid)">
+              <img [src]="cat.image" alt="{{ cat.name }}" />
+              <h2>{{ cat.name }}</h2>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  }
