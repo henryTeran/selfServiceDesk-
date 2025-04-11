@@ -12,9 +12,10 @@ import { NotificationService } from '../../services/notifications/notification.s
 export class RecipeComponent {
   @Input() public selectedCategory?: Category;
   @Output() selectRecipe = new EventEmitter<Recipe>();
-  public selectedRecipe: Recipe[] = [];
+
   
   constructor(private notificationService: NotificationService) {}
+
   addToCart(recipe: Recipe) {
     this.selectRecipe.emit(recipe);  
     this.notificationService.show(`${recipe.title} ajouté au panier !`);

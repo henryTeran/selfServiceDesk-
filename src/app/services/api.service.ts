@@ -2,21 +2,24 @@ import { HttpClient, HttpRequest } from "@angular/common/http";
 import { Category, Recipe, Restaurant } from "../interfaces";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, firstValueFrom } from "rxjs";
+import { beforeAuthStateChanged } from "@angular/fire/auth";
 
 @Injectable ({
   providedIn: 'root'
 })
 
 export class APIService  {
-  restaurants: Restaurant | null = null;
-  selectedCategory: Category | null = null;
   selectedRecipe: Recipe[] = [];
   loading = true;
 
   private readonly _data$ = new BehaviorSubject<Restaurant | null>(null); 
-  private readonly _photoResto$ = new BehaviorSubject <string>(""); 
+  private readonly _photoResto$ = new BehaviorSubject<string>(""); 
+  private readonly _selectedCategory$ = new BehaviorSubject<Category | null>(null); 
   public readonly data$ = this._data$.asObservable();
   public readonly photoResto$ = this._photoResto$.asObservable(); 
+  public readonly selectedCategory$ = this._selectedCategory$.asObservable();
+
+
 
  
   constructor(private readonly http : HttpClient) {}
@@ -51,8 +54,10 @@ export class APIService  {
       return undefined;
     }
   }
-  selectCategory(category: Category): void {
-    this.selectedCategory = category;
+  selectCategory(category: Category): Category {
+    this._selectedCategory$.next(category);
+    return category;
+  
   }
 
 

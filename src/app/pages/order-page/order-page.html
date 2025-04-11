@@ -14,12 +14,15 @@
       }
       <!-- CONTENU PRINCIPAL (Produits) -->
       <div class="content">
-          <app-recipe [selectedCategory]="selectedCategory" (selectRecipe)="addRecipeToCart($event)"></app-recipe>
+        @if(selectedCategory$ | async; as selectedCategory) {
+         <app-recipe [selectedCategory]="selectedCategory" (selectRecipe)="addRecipeToCart($event)"></app-recipe>
+        }
       </div>
 
       <!-- PANIER À DROITE -->
       <app-cart [selectedRecipe]="selectedRecipe" (removeSelectFromCart)="removeFromCart($event)" (saveOrder) = "saveOrder($event)"></app-cart>
   </div>
+
 
   <!-- FOOTER -->
   <app-footer></app-footer>

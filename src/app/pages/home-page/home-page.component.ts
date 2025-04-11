@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { APIService } from '../../services/api.service';
 import { Restaurant } from '../../interfaces';
 import { Router } from '@angular/router';
-
+import { IonAvatar, IonButton, IonContent, IonImg, IonItem, IonLabel, IonNote, NavController } from '@ionic/angular/standalone';
 @Component({
   selector: 'app-home-page',
-  imports: [],
+  imports: [IonButton, IonContent, IonImg, IonLabel, IonItem, IonNote,  IonAvatar],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
@@ -15,18 +15,18 @@ export class HomePageComponent implements OnInit{
 
   constructor (
     private _apiService: APIService,
-    private router: Router){} 
+    private _navCtrl: NavController){} 
 
   async ngOnInit () {
     const data = await this._apiService.getRecipeWithHpptRequest(); 
     console.log(data)
     this.RestoInfo = data;
+    document.documentElement.style.setProperty('--bg-img', `url(${this.RestoInfo?.photo})`);
     
   }
 
-  navigate(path: string): void {
-    console.log(path);
-    this.router.navigate([path]);
+  startOrdering() {
+    this._navCtrl.navigateForward('/choiseOrder'); 
   }
 
 }

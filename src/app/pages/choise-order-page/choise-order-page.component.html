@@ -1,14 +1,25 @@
 @if (RestoInfo) {
-    <div class="background" [style.backgroundImage]="'url(' + RestoInfo.photo + ')'">
-        <div class="overlay">
-            <h1>Choisissez votre option</h1>
-            <div class="choices">
-                @for (choice of choices; track choice) {
-                    <button (click)="selectChoice(choice)">
-                        {{ choice }}
-                    </button>
-                }
+    <ion-content fullscreen>
+        <div class="background">
+            <div class="cta-section">
+                <h1>Veuillez choisir</h1>
+                <div class="choices">
+                    <div class="overlay">
+                        <ion-grid [fixed]="true">
+                            <ion-row>
+                                <ion-col class="option">
+                                <ion-img src = "assets/emporter-removebg-preview.png" alt = "Emporter" class="bottom" (click)="selectChoice(1)"></ion-img>
+                                <ion-label>À emporter</ion-label>
+                                </ion-col>
+                                <ion-col class="option"> 
+                                <ion-img src = "assets/surplace-removebg-preview.png" alt = "surPlace" class="bottom"  (click)="selectChoice(2)"> </ion-img>
+                                <ion-label>Sur place</ion-label>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </ion-content>
 }

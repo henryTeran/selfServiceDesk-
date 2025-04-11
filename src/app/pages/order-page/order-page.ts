@@ -23,7 +23,7 @@ import { ActivatedRoute } from '@angular/router';
 export class OrderPage implements OnInit {
   public RestoInfo$!: Observable<Restaurant | null>;
   public Categories$!: Observable<Category[] | undefined>;
-  public selectedCategory?: Category;
+  public selectedCategory$?: Observable<Category | null>;
   public selectedRecipe: Recipe[] = [];
   public currentRoute$!: Observable<string>; // Observable pour la route actuelle
 
@@ -42,22 +42,18 @@ export class OrderPage implements OnInit {
 
     this.RestoInfo$ = this._apiService.data$;
 
-  // Ou version avec firstValueFrom
-  firstValueFrom(this._activatedRoute.paramMap).then(params => {
-    const uuid = params.get('uuid');
-    console.log('From firstValueFrom →', uuid);
-  });
-
-  // demander pour le  shareReplay(1)
-
-
+    // Ou version avec firstValueFrom
+    firstValueFrom(this._activatedRoute.paramMap).then(params => {
+      const uuid = params.get('uuid');
+      console.log('From firstValueFrom →', uuid);
+    });
    
   }
    // Fonction appelée lors du clic sur une catégorie
   selectCategory(category: Category) {
-    this.selectedCategory = category;
     this._apiService.selectCategory(category);
-    console.log('Catégorie sélectionnée:', this.selectedCategory);
+    this.selectedCategory$ = this._apiService.selectedCategory$;
+    console.log('Catégorie sélectionnée:', this.selectedCategory$);
   }
 
   // Fonction appelée lors du clic sur un recete à ajouter au cart

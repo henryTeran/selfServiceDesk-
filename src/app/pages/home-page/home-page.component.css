@@ -1,77 +1,74 @@
-.home-container,
-.background {
+.home-screen {
+  position: relative;
+  --background: transparent;
+}
+
+.background-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
   background-size: cover;
   background-position: center;
-  height: 100vh;
-  /* display: flex; */
-  justify-content: center;
-  align-items: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+  background-image: var(--bg-img);
 }
 
-.cta-section {
-  width: 100%;
+.cta-content {
+  position: absolute;
+  top: 0;
+  left: 0;
   height: 100%;
-  position: relative;
+  width: 100%;
+  z-index: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  padding: 0 16px;
+  text-align: center;
 }
 
-.cta-section h1 {
+.cta-content h1 {
   color: white;
-  font-size: 100px;
+  font-size: clamp(2rem, 6vw, 3.5rem);
   text-shadow: 2px 2px 4px black;
-  margin-bottom: 300px;
+  margin-bottom: 1rem;
 }
 
-.cta-section p {
+.cta-content p {
   color: white;
-  font-size: 50px;
+  font-size: clamp(1rem, 4vw, 2rem);
   text-shadow: 2px 2px 4px black;
-  margin-bottom: 10px;
+  margin-bottom: 2rem;
 }
 
-/* Image doigt */
 .touch-icon {
-  position: absolute;
-  bottom: 300px;
-  left: 45%;
-  transform: translateX(-50%);
-  width: 120px;
-  height: auto;
+  width: clamp(80px, 10vw, 120px);
   animation: bounce 1.5s infinite;
-  z-index: 2;
+  filter: brightness(0) invert(1);
   pointer-events: none;
-  filter: brightness(0) invert(1); /* => rend l'image blanche */
 }
 
-
-  img.white-to-colored {
-    filter: brightness(0) invert(1); /* rend l’image blanche */
-    background-color: red; /* ajoute une couleur de fond */
-  }
-
-
-/* Plein écran clic */
 .start-btn-fullscreen {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  z-index: 1;
+  z-index: 2;
+  --background: transparent;
+  --border-width: 0;
 }
 
-/* Animation du doigt */
+/* Animation doigt */
 @keyframes bounce {
   0%, 100% {
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-15px);
+    transform: translateY(-20px);
   }
 }

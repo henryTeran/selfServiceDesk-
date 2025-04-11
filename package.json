@@ -21,6 +21,8 @@
     "@angular/platform-browser": "^19.2.4",
     "@angular/platform-browser-dynamic": "^19.2.4",
     "@angular/router": "^19.2.4",
+    "@angular/service-worker": "^19.2.4",
+    "@ionic/angular": "^8.5.3",
     "dotenv": "^16.4.7",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
@@ -39,6 +41,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "ts-node": "^10.9.2",
-    "typescript": "~5.7.2"
+    "typescript": "~5.7.2",
+    "@ionic/angular-toolkit": "latest"
   }
 }
