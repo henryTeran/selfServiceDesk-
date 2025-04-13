@@ -26,5 +26,16 @@
         ]
       }
     }
+  ],
+  "dataGroups": [
+    {
+      "name": "blabla",
+      "urls": ["assets/data/resto-data.json"],
+      "cacheConfig": {
+        "maxAge": "1m", 
+        "maxSize": 2,
+        "strategy": "freshness"
+      }
+    }
   ]
 }
