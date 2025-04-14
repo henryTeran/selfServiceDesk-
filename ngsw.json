@@ -1,0 +1,155 @@
+{
+  "configVersion": 1,
+  "timestamp": 1744617579858,
+  "index": "/selfServiceDesk-/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/selfServiceDesk-/chunk-3QL45KRQ.js",
+        "/selfServiceDesk-/chunk-4WFVMWDK.js",
+        "/selfServiceDesk-/chunk-5TSG52GP.js",
+        "/selfServiceDesk-/chunk-6NKEQF47.js",
+        "/selfServiceDesk-/chunk-B43CU5JX.js",
+        "/selfServiceDesk-/chunk-BK2I6YVN.js",
+        "/selfServiceDesk-/chunk-D3BRFJTW.js",
+        "/selfServiceDesk-/chunk-D7YYRZS5.js",
+        "/selfServiceDesk-/chunk-DF27G4ZF.js",
+        "/selfServiceDesk-/chunk-EXODZR4U.js",
+        "/selfServiceDesk-/chunk-GXZLSZ6B.js",
+        "/selfServiceDesk-/chunk-HNWJKHJN.js",
+        "/selfServiceDesk-/chunk-IIROXOXZ.js",
+        "/selfServiceDesk-/chunk-K3GX4FC7.js",
+        "/selfServiceDesk-/chunk-KIHOHDCL.js",
+        "/selfServiceDesk-/chunk-LF4PJBAP.js",
+        "/selfServiceDesk-/chunk-LF5XB4YN.js",
+        "/selfServiceDesk-/chunk-LL33C7UX.js",
+        "/selfServiceDesk-/chunk-NMYJD6OP.js",
+        "/selfServiceDesk-/chunk-PG33B7B6.js",
+        "/selfServiceDesk-/chunk-TNYR7F3H.js",
+        "/selfServiceDesk-/chunk-TQEIIVVC.js",
+        "/selfServiceDesk-/chunk-UPQ5I4VX.js",
+        "/selfServiceDesk-/chunk-XV247VAB.js",
+        "/selfServiceDesk-/chunk-ZPIJEXIQ.js",
+        "/selfServiceDesk-/favicon.ico",
+        "/selfServiceDesk-/index.html",
+        "/selfServiceDesk-/main-YJGO42OQ.js",
+        "/selfServiceDesk-/manifest.webmanifest",
+        "/selfServiceDesk-/polyfills-FFHMD2TL.js",
+        "/selfServiceDesk-/styles-3EJIIGMA.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/selfServiceDesk-/assets/emporter-removebg-preview.png",
+        "/selfServiceDesk-/assets/emporter.jpg",
+        "/selfServiceDesk-/assets/hand.png",
+        "/selfServiceDesk-/assets/push.png",
+        "/selfServiceDesk-/assets/surplace-removebg-preview.png",
+        "/selfServiceDesk-/assets/surplace.png",
+        "/selfServiceDesk-/icons/icon-128x128.png",
+        "/selfServiceDesk-/icons/icon-144x144.png",
+        "/selfServiceDesk-/icons/icon-152x152.png",
+        "/selfServiceDesk-/icons/icon-192x192.png",
+        "/selfServiceDesk-/icons/icon-384x384.png",
+        "/selfServiceDesk-/icons/icon-512x512.png",
+        "/selfServiceDesk-/icons/icon-72x72.png",
+        "/selfServiceDesk-/icons/icon-96x96.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "blabla",
+      "patterns": [
+        "\\/selfServiceDesk-\\/assets\\/data\\/resto-data\\.json"
+      ],
+      "strategy": "freshness",
+      "maxSize": 2,
+      "maxAge": 60000,
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "version": 1
+    }
+  ],
+  "hashTable": {
+    "/selfServiceDesk-/assets/emporter-removebg-preview.png": "498fa2e07b66e01b61219c16edacc7064ed9853c",
+    "/selfServiceDesk-/assets/emporter.jpg": "3202625aec00f22791b936c2ff74fabd2711ecc1",
+    "/selfServiceDesk-/assets/hand.png": "2e4a306ce70d22c170be4871a7ac696250262e17",
+    "/selfServiceDesk-/assets/push.png": "b82e0b53c497b69fad6946b7e8cb49b504bebdb8",
+    "/selfServiceDesk-/assets/surplace-removebg-preview.png": "e3f5fb16b3c71540ea99ddaf199da563a82262d6",
+    "/selfServiceDesk-/assets/surplace.png": "c1dd70d4d06486205c2c51d215a63fd0256b5267",
+    "/selfServiceDesk-/chunk-3QL45KRQ.js": "e5c0548e519d2c73e0e613f386414ce63fe17544",
+    "/selfServiceDesk-/chunk-4WFVMWDK.js": "5b6d47107e58373ea3dc79e4e6878406e21505e8",
+    "/selfServiceDesk-/chunk-5TSG52GP.js": "f737f83fa42daa825e6ed7823ec653913715391d",
+    "/selfServiceDesk-/chunk-6NKEQF47.js": "2e0f2b08f0c3c26ea174fe8160cb80534653de9e",
+    "/selfServiceDesk-/chunk-B43CU5JX.js": "73485691923b650ef3c649d634c71239c18c0416",
+    "/selfServiceDesk-/chunk-BK2I6YVN.js": "75a6b32900c11ed8bafd911e5328868b2a11b1c7",
+    "/selfServiceDesk-/chunk-D3BRFJTW.js": "cc55b9b25a682b75baabaa9982034cdd8135dab2",
+    "/selfServiceDesk-/chunk-D7YYRZS5.js": "0aab176376718d14610eb0897798691c9f729a1f",
+    "/selfServiceDesk-/chunk-DF27G4ZF.js": "ce29e2466b73c4b0dbc56710e4a85eed43f13c4d",
+    "/selfServiceDesk-/chunk-EXODZR4U.js": "18f1e849f7f82ccd267da51be389ec09b80a97bd",
+    "/selfServiceDesk-/chunk-GXZLSZ6B.js": "47e433acae5645d62a7a1cf463d4dc2c7c11b578",
+    "/selfServiceDesk-/chunk-HNWJKHJN.js": "4c27334af6de34c1f16e5181cc1914956763dc62",
+    "/selfServiceDesk-/chunk-IIROXOXZ.js": "7140668ba97d41b653b7d66fee5a119538dcf791",
+    "/selfServiceDesk-/chunk-K3GX4FC7.js": "10fa59a2cadeb1165a4bb96731185015b5f560ed",
+    "/selfServiceDesk-/chunk-KIHOHDCL.js": "f01cb60f3a1906f1df0f704ba997648ba1bc14cf",
+    "/selfServiceDesk-/chunk-LF4PJBAP.js": "283398c2a6777f625c4eca61a8e4c35caef4135c",
+    "/selfServiceDesk-/chunk-LF5XB4YN.js": "9a4312a44cc8ab8573488a48a18c01a6bb352c6b",
+    "/selfServiceDesk-/chunk-LL33C7UX.js": "61729429d823448ce2a5936a2848129381af59a3",
+    "/selfServiceDesk-/chunk-NMYJD6OP.js": "0175118cb5ac5fb567dcfbf6a8bcb81ace8edf1a",
+    "/selfServiceDesk-/chunk-PG33B7B6.js": "f15a6d9850acb314a6b9399193f71f77b932b95c",
+    "/selfServiceDesk-/chunk-TNYR7F3H.js": "33ca99e297686a1b6d51b945e31a917ed2662e03",
+    "/selfServiceDesk-/chunk-TQEIIVVC.js": "c7296efb75e44b6c5b31377a35aaf8879f17f8b1",
+    "/selfServiceDesk-/chunk-UPQ5I4VX.js": "d152476cdbf972147729f0d6bdf94ba1bfd4d78c",
+    "/selfServiceDesk-/chunk-XV247VAB.js": "de668a842b87ac7961a03e21d854e11279b00064",
+    "/selfServiceDesk-/chunk-ZPIJEXIQ.js": "0934a98b9871d4d1515ff132de0ec982bcbe68ff",
+    "/selfServiceDesk-/favicon.ico": "9c39f434fe1261f68c5e3eefdf734630d99c5670",
+    "/selfServiceDesk-/icons/icon-128x128.png": "f912963bdc6d5a38d8f1dd0afbaab2ce8d657acb",
+    "/selfServiceDesk-/icons/icon-144x144.png": "b155fd5f2fd5d2ea7760721063003c4cd95fd783",
+    "/selfServiceDesk-/icons/icon-152x152.png": "eae6e0f0c8afb8aaae339e2a569b43e9238e5e6c",
+    "/selfServiceDesk-/icons/icon-192x192.png": "15c4180454633880d98674aa7394656196c91584",
+    "/selfServiceDesk-/icons/icon-384x384.png": "94a915751ef6c9282df9aea405ad679230631814",
+    "/selfServiceDesk-/icons/icon-512x512.png": "1de182f76f7329dfa8f9fcdd1fdcdd695bea6a99",
+    "/selfServiceDesk-/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
+    "/selfServiceDesk-/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
+    "/selfServiceDesk-/index.html": "04d0f34957a0a2c4fb86fb1f749870e46d203333",
+    "/selfServiceDesk-/main-YJGO42OQ.js": "521e20d91db902917ffa99cc5e48b9e61d071353",
+    "/selfServiceDesk-/manifest.webmanifest": "e7c6bfd096208a1e9610b59f449229cbf2e1a4b2",
+    "/selfServiceDesk-/polyfills-FFHMD2TL.js": "f49b49a155bc7d192db62a4c15d0a612b460a667",
+    "/selfServiceDesk-/styles-3EJIIGMA.css": "ea8ad6f7365345635c4ea29a43eca8be35598363"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
