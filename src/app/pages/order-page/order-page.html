@@ -2,8 +2,8 @@
   <app-notification></app-notification>
 
   <!-- HEADER -->
-   @if(RestoInfo$ | async; as RestoInfo){
-
+  
+  @if(RestoInfo$ | async; as RestoInfo){
      <app-header [RestoInfo]="RestoInfo"></app-header>
    }
 
