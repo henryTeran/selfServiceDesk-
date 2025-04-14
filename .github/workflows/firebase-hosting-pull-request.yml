@@ -15,6 +15,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Set Environment and Build
         run:  | 
+          mkdir -p src/environments
           echo "export const environment = {" > src/environments/environment.ts
           echo "  production: true," >> src/environments/environment.ts
           echo "  firebase: {" >> src/environments/environment.ts
