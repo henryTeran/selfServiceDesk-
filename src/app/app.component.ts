@@ -12,6 +12,6 @@ import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 })
 export class AppComponent {
   constructor(
-    // private idleService: IdleService,
+     private idleService: IdleService,
   ){}
 }
