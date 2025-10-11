@@ -20,12 +20,11 @@
       </div>
 
       <!-- PANIER À DROITE -->
-      <app-cart [selectedRecipe]="selectedRecipe" (removeSelectFromCart)="removeFromCart($event)" (saveOrder) = "saveOrder($event)"></app-cart>
+      @if (selectedRecipe$ | async; as selectedRecipe) {
+        <app-cart [selectedRecipe]="selectedRecipe" (removeSelectFromCart)="removeFromCart($event)" (saveOrder)="saveOrder($event)"></app-cart>
+      }
   </div>
-
 
   <!-- FOOTER -->
   <app-footer></app-footer>
-
-  <p>Route actuelle : {{ currentRoute$ | async }}</p>
 </div>

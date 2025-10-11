@@ -9,7 +9,10 @@ import { CartComponent } from '../../components/cart/cart.component';
 import { NotificationComponent } from '../../components/notification/notification.component';
 import { firstValueFrom, map, Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { FirebeseApiService } from '../../services/firebese-api.service';
+import { SupabaseService } from '../../services/supabase.service';
+import { CartService } from '../../services/cart.service';
+import { ChoiseService } from '../../services/choise.service';
+import { NavController } from '@ionic/angular/standalone';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -24,13 +27,16 @@ export class OrderPage implements OnInit {
   public RestoInfo$!: Observable<Restaurant | null>;
   public Categories$!: Observable<Category[] | undefined>;
   public selectedCategory$?: Observable<Category | null>;
-  public selectedRecipe: Recipe[] = [];
-  public currentRoute$!: Observable<string>; // Observable pour la route actuelle
+  public selectedRecipe$!: Observable<Recipe[]>;
+  public currentRoute$!: Observable<string>;
 
   constructor(
-    private readonly _apiService: APIService, 
-    private readonly _firebaseService: FirebeseApiService, 
-    private readonly _activatedRoute: ActivatedRoute
+    private readonly _apiService: APIService,
+    private readonly _supabaseService: SupabaseService,
+    private readonly _cartService: CartService,
+    private readonly _choiseService: ChoiseService,
+    private readonly _activatedRoute: ActivatedRoute,
+    private readonly _navCtrl: NavController
   ) { }
 
   ngOnInit()  {
@@ -41,13 +47,22 @@ export class OrderPage implements OnInit {
     );
 
     this.RestoInfo$ = this._apiService.data$;
+    this.selectedRecipe$ = this._cartService.cartItems$;
 
-    // Ou version avec firstValueFrom
     firstValueFrom(this._activatedRoute.paramMap).then(params => {
       const uuid = params.get('uuid');
-      console.log('From firstValueFrom →', uuid);
+      if (uuid) {
+        const category = this._apiService.data$.pipe(
+          map(data => data?.data?.find(cat => cat.uuid === uuid) || null)
+        );
+
+        firstValueFrom(category).then(cat => {
+          if (cat) {
+            this.selectCategory(cat);
+          }
+        });
+      }
     });
-   
   }
    // Fonction appelée lors du clic sur une catégorie
   selectCategory(category: Category) {
@@ -56,32 +71,31 @@ export class OrderPage implements OnInit {
     console.log('Catégorie sélectionnée:', this.selectedCategory$);
   }
 
-  // Fonction appelée lors du clic sur un recete à ajouter au cart
   addRecipeToCart(recipe: Recipe) {
-    if (!this.selectedRecipe) {
-      this.selectedRecipe = []; // Assure qu'on a bien un tableau
-    }
-    this.selectedRecipe = this._apiService.addToCart(recipe);
-    console.log("Return servie", this.selectedRecipe);
+    this._cartService.addToCart(recipe);
   }
 
-  removeFromCart (recipe: Recipe) {
-    this.selectedRecipe = this._apiService.removeFromCart(recipe); 
+  removeFromCart(recipe: Recipe) {
+    this._cartService.removeFromCart(recipe);
   }
 
-  
   async saveOrder(recipes: Recipe[]) {
     const orderDataFormat: SimplifiedRecipe[] = recipes.map(r => ({
       uuid: r.uuid,
       title: r.title,
       description: r.description,
-      price: r.price,
-      imageUrl: r.imageUrl
+      price: r.price
     }));
-  
-    const result = await this._firebaseService.saveOrder(orderDataFormat);
-    console.log('Commandes enregistrées :', result);
-    this.selectedRecipe = []; // vider le panier si tu veux
+
+    const orderType = await firstValueFrom(this._choiseService.choise$) || 'surplace';
+    const { order, error } = await this._supabaseService.saveOrder(orderDataFormat, orderType);
+
+    if (!error && order) {
+      this._cartService.clearCart();
+      this._navCtrl.navigateForward(['/validation', order.id]);
+    } else {
+      console.error('Erreur lors de l\'enregistrement de la commande:', error);
+    }
   }
   
 

@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Recipe } from '../../interfaces';
 import { NotificationService } from '../../services/notifications/notification.service';
-import { FirebeseApiService } from '../../services/firebese-api.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-cart',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
@@ -21,8 +21,7 @@ export class CartComponent {
   }
  
   constructor(
-    private readonly _notificationService: NotificationService,
-    private readonly _apiFirebase: FirebeseApiService
+    private readonly _notificationService: NotificationService
   ) {}
 
     
@@ -30,21 +29,16 @@ export class CartComponent {
   removeFromCart(recipe: Recipe) {
     this.removeSelectFromCart.emit(recipe);
     this._notificationService.show(`${recipe.title} retiré du panier !`);
-    console.log(this._notificationService.messages);
-   }
+  }
 
-  saveOrderFromCart(recipe:Recipe[]) {
-    this.saveOrder.emit(recipe);
-    console.log("bouton licl")
-
+  saveOrderFromCart(recipe: Recipe[]) {
+    if (recipe.length > 0) {
+      this.saveOrder.emit(recipe);
+      this._notificationService.show('Commande en cours de traitement...');
+    }
   }
 
   getTotalPrice(): number {
     return this.selectedRecipe.reduce((sum, item) => sum + item.price, 0);
   }
-  
-
-
 }
-
-///revoir reactif programming !!!!!!

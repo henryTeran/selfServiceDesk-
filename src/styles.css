@@ -49,5 +49,69 @@ body {
     background-color: green;
     color: white;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); 
-  }
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.page-transition-enter {
+    animation: pageEnter 0.4s ease-out;
+}
+
+.page-transition-leave {
+    animation: pageLeave 0.4s ease-out;
+}
+
+@keyframes pageEnter {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pageLeave {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.slide-up {
+    animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

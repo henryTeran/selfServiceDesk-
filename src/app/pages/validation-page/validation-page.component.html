@@ -1,1 +1,57 @@
-<p>validation-page works!</p>
+<ion-content class="validation-page">
+  @if (loading) {
+    <div class="loading-container">
+      <div class="spinner"></div>
+      <p>Chargement de votre commande...</p>
+    </div>
+  } @else if (order) {
+    <div class="validation-container">
+      <div class="success-icon">✓</div>
+
+      <h1>Commande validée !</h1>
+
+      <div class="order-number">
+        <p>Numéro de commande</p>
+        <h2>#{{ order.order_number }}</h2>
+      </div>
+
+      <div class="order-type">
+        <p>{{ order.order_type === 'emporter' ? 'À emporter' : 'Sur place' }}</p>
+      </div>
+
+      <div class="order-details">
+        <h3>Détails de votre commande</h3>
+
+        @for (item of orderItems; track item.id) {
+          <div class="order-item">
+            <span class="item-title">{{ item.title }}</span>
+            <span class="item-price">{{ item.price }} CHF</span>
+          </div>
+        }
+
+        <div class="order-total">
+          <span>Total</span>
+          <span class="total-price">{{ order.total_price }} CHF</span>
+        </div>
+      </div>
+
+      <div class="instructions">
+        <p>Merci pour votre commande !</p>
+        <p class="preparation-info">Votre commande est en cours de préparation.</p>
+      </div>
+
+      <div class="countdown-info">
+        <p>Retour automatique dans <strong>{{ countdown }}</strong> secondes</p>
+      </div>
+
+      <ion-button expand="block" size="large" (click)="goHome()" class="home-button">
+        Retour à l'accueil
+      </ion-button>
+    </div>
+  } @else {
+    <div class="error-container">
+      <p>Commande introuvable</p>
+      <ion-button (click)="goHome()">Retour à l'accueil</ion-button>
+    </div>
+  }
+</ion-content>
