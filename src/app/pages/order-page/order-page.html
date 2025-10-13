@@ -1,0 +1,31 @@
+<div class="order-page">
+  <app-notification></app-notification>
+
+  <!-- HEADER -->
+  
+  @if(RestoInfo$ | async; as RestoInfo){
+     <app-header [RestoInfo]="RestoInfo"></app-header>
+   }
+
+  <div class="main-layout">
+      <!-- SIDEBAR À GAUCHE -->
+       @if (Categories$ | async; as Categories) {
+        <app-sidebar [Categories]="Categories" (selectCategory)="selectCategory($event)"></app-sidebar>
+      }
+      <!-- CONTENU PRINCIPAL (Produits) -->
+      <div class="content">
+        @if(selectedCategory$ | async; as selectedCategory) {
+         <app-recipe [selectedCategory]="selectedCategory" (selectRecipe)="addRecipeToCart($event)"></app-recipe>
+        }
+      </div>
+
+      <!-- PANIER À DROITE -->
+      <app-cart [selectedRecipe]="selectedRecipe" (removeSelectFromCart)="removeFromCart($event)" (saveOrder) = "saveOrder($event)"></app-cart>
+  </div>
+
+
+  <!-- FOOTER -->
+  <app-footer></app-footer>
+
+  <p>Route actuelle : {{ currentRoute$ | async }}</p>
+</div>
