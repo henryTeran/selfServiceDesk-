@@ -1,0 +1,32 @@
+/* ✅ Conteneur principal */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    text-align: center;
+    padding: 15px;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+/* ✅ Bouton Commander amélioré */
+.footer button {
+    background: #ff4500;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s ease-in-out, transform 0.2s;
+}
+
+/* ✅ Effet au survol */
+.footer button:hover {
+    background: #ff6347;
+    transform: scale(1.05);
+}
