@@ -2,14 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { firstValueFrom, Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { ModalController } from '@ionic/angular/standalone';
 import { APIService } from '../../services/api.service';
 import { SupabaseApiService } from '../../services/supabase-api.service';
 import { CartStore } from '../../services/cart-store.service';
 import { NotificationService } from '../../services/notifications/notification.service';
 import { ChoiseService } from '../../services/choise.service';
-import { Category, Recipe, Restaurant, SimplifiedRecipe } from '../../interfaces';
+import { Category, Recipe, Restaurant, SimplifiedRecipe, CartItem } from '../../interfaces';
 import { CartComponent } from '../../components/cart/cart.component';
 import { NotificationComponent } from '../../components/notification/notification.component';
+import { ProductQuantityModalComponent } from '../../components/product-quantity-modal/product-quantity-modal.component';
 
 @Component({
   selector: 'app-order-page',
@@ -37,7 +39,8 @@ export class OrderPage implements OnInit {
     private readonly _cartStore: CartStore,
     private readonly _notificationService: NotificationService,
     private readonly _choiseService: ChoiseService,
-    private readonly _activatedRoute: ActivatedRoute
+    private readonly _activatedRoute: ActivatedRoute,
+    private readonly _modalCtrl: ModalController
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -65,9 +68,25 @@ export class OrderPage implements OnInit {
     this.selectedCategory$ = this._apiService.selectedCategory$;
   }
 
-  addRecipeToCart(recipe: Recipe): void {
-    this._cartStore.add(recipe);
-    this.isCartOpen = true;
+  async addRecipeToCart(recipe: Recipe): Promise<void> {
+    const modal = await this._modalCtrl.create({
+      component: ProductQuantityModalComponent,
+      componentProps: {
+        product: recipe
+      },
+      breakpoints: [0, 0.5, 0.75, 1],
+      initialBreakpoint: 0.75
+    });
+
+    await modal.present();
+
+    const { data, role } = await modal.onWillDismiss();
+
+    if (role === 'confirm' && data) {
+      this._cartStore.add(data.product, data.quantity);
+      this._notificationService.success(`${data.product.title} ajouté au panier (quantité : ${data.quantity})`);
+      this.isCartOpen = true;
+    }
   }
 
   toggleCart(): void {
@@ -78,19 +97,21 @@ export class OrderPage implements OnInit {
     this.isCartOpen = false;
   }
 
-  async saveOrder(recipes: Recipe[]): Promise<void> {
-    if (recipes.length === 0) {
+  async saveOrder(items: CartItem[]): Promise<void> {
+    if (items.length === 0) {
       this._notificationService.warning('Le panier est vide !');
       return;
     }
 
-    const orderDataFormat: SimplifiedRecipe[] = recipes.map(r => ({
-      uuid: r.uuid,
-      title: r.title,
-      description: r.description,
-      price: r.price,
-      imageUrl: r.imageUrl
-    }));
+    const orderDataFormat: SimplifiedRecipe[] = items.flatMap(item =>
+      Array(item.quantity).fill({
+        uuid: item.recipe.uuid,
+        title: item.recipe.title,
+        description: item.recipe.description,
+        price: item.recipe.price,
+        imageUrl: item.recipe.imageUrl
+      })
+    );
 
     try {
       const orderType = await firstValueFrom(this._choiseService.choise$) || 'emporter';

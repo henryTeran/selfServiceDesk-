@@ -4,16 +4,20 @@ import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { SupabaseApiService } from '../../services/supabase-api.service';
 import { NotificationService } from '../../services/notifications/notification.service';
+import { PricePipe } from '../../pipes/price.pipe';
+
+interface OrderItem {
+  uuid: string;
+  title: string;
+  price: number;
+  imageUrl: string;
+  validated?: boolean;
+}
 
 interface Order {
   id: string;
   order_number: string;
-  items: Array<{
-    uuid: string;
-    title: string;
-    price: number;
-    imageUrl: string;
-  }>;
+  items: OrderItem[];
   total_price: number;
   order_type: string;
   payment_method?: string;
@@ -24,7 +28,8 @@ interface Order {
 
 @Component({
   selector: 'app-admin-orders-page',
-  imports: [CommonModule, FormsModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule, PricePipe],
   templateUrl: './admin-orders-page.component.html',
   styleUrls: ['./admin-orders-page.component.css']
 })
@@ -35,6 +40,7 @@ export class AdminOrdersPageComponent implements OnInit, OnDestroy {
   isLoading = signal<boolean>(false);
   expandedOrderId = signal<string | null>(null);
   newOrderIds = signal<Set<string>>(new Set());
+  itemValidationState = signal<Map<string, Set<number>>>(new Map());
 
   private realtimeSubscription?: Subscription;
   private notificationAudio?: HTMLAudioElement;
@@ -159,10 +165,63 @@ export class AdminOrdersPageComponent implements OnInit, OnDestroy {
     }
   }
 
+  toggleItemValidation(orderId: string, itemIndex: number): void {
+    const currentState = this.itemValidationState();
+    const newState = new Map(currentState);
+
+    if (!newState.has(orderId)) {
+      newState.set(orderId, new Set());
+    }
+
+    const orderItems = newState.get(orderId)!;
+    if (orderItems.has(itemIndex)) {
+      orderItems.delete(itemIndex);
+    } else {
+      orderItems.add(itemIndex);
+    }
+
+    this.itemValidationState.set(newState);
+  }
+
+  isItemValidated(orderId: string, itemIndex: number): boolean {
+    const state = this.itemValidationState();
+    return state.get(orderId)?.has(itemIndex) || false;
+  }
+
+  canValidateOrder(orderId: string): boolean {
+    const order = this.filteredOrders().find(o => o.id === orderId);
+    if (!order) return false;
+
+    const validatedItems = this.itemValidationState().get(orderId);
+    return validatedItems?.size === order.items.length;
+  }
+
+  async validateOrder(order: Order): Promise<void> {
+    if (!this.canValidateOrder(order.id)) {
+      this._notificationService.warning('Veuillez cocher tous les articles avant de valider');
+      return;
+    }
+
+    try {
+      await this._supabaseService.updateOrderStatus(order.id, 'validated');
+      this._notificationService.success(`Commande ${order.order_number} validée ✅`);
+
+      const currentState = this.itemValidationState();
+      const newState = new Map(currentState);
+      newState.delete(order.id);
+      this.itemValidationState.set(newState);
+
+      await this.loadOrders();
+    } catch (error) {
+      console.error('Erreur lors de la validation :', error);
+      this._notificationService.error('Erreur lors de la validation');
+    }
+  }
+
   async updateOrderStatus(orderId: string, newStatus: string): Promise<void> {
     try {
       await this._supabaseService.updateOrderStatus(orderId, newStatus);
-      this._notificationService.success(`Commande mise à jour : ${newStatus}`);
+      this._notificationService.success(`Commande mise à jour : ${this.getStatusLabel(newStatus)}`);
       await this.loadOrders();
     } catch (error) {
       console.error('Erreur lors de la mise à jour :', error);
@@ -174,8 +233,10 @@ export class AdminOrdersPageComponent implements OnInit, OnDestroy {
     switch (status) {
       case 'pending':
         return 'status-pending';
-      case 'completed':
-        return 'status-completed';
+      case 'validated':
+        return 'status-validated';
+      case 'delivered':
+        return 'status-delivered';
       case 'cancelled':
         return 'status-cancelled';
       default:
@@ -187,8 +248,10 @@ export class AdminOrdersPageComponent implements OnInit, OnDestroy {
     switch (status) {
       case 'pending':
         return 'En attente';
-      case 'completed':
-        return 'Terminée';
+      case 'validated':
+        return 'Validée';
+      case 'delivered':
+        return 'Livrée';
       case 'cancelled':
         return 'Annulée';
       default:

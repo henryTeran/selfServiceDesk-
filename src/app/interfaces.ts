@@ -65,3 +65,8 @@ export interface BottomSheet {
   heroImgUrl: string;
   paragraphs: string[] | null;
 }
+
+export interface CartItem {
+  recipe: Recipe;
+  quantity: number;
+}

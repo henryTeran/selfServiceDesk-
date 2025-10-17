@@ -1,28 +1,63 @@
 <div class="cart-items">
-  @for (item of selectedRecipe; track item.uuid) {
+  @for (item of selectedRecipe; track item.recipe.uuid) {
     <div class="cart-item">
-      <img src="{{ item.imageUrl }}" alt="{{ item.title }}" />
+      <img [src]="item.recipe.imageUrl" [alt]="item.recipe.title" class="item-image" />
+
       <div class="item-info">
-        <h4>{{ item.title }}</h4>
-        <p>{{ item.price.toFixed(2) }} CHF</p>
+        <h4 class="item-title">{{ item.recipe.title }}</h4>
+        <p class="item-price">{{ item.recipe.price | price }}</p>
       </div>
-      <button class="remove-btn" (click)="removeFromCart(item)">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="18" y1="6" x2="6" y2="18"/>
-          <line x1="6" y1="6" x2="18" y2="18"/>
-        </svg>
-      </button>
+
+      <div class="item-actions">
+        <div class="quantity-controls">
+          <button
+            class="qty-btn qty-minus"
+            (click)="decrementQuantity(item)"
+            [attr.aria-label]="'Diminuer la quantité de ' + item.recipe.title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+          </button>
+
+          <span class="quantity-value">{{ item.quantity }}</span>
+
+          <button
+            class="qty-btn qty-plus"
+            (click)="incrementQuantity(item)"
+            [attr.aria-label]="'Augmenter la quantité de ' + item.recipe.title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"/>
+              <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+          </button>
+        </div>
+
+        <button
+          class="remove-btn"
+          (click)="removeFromCart(item)"
+          [attr.aria-label]="'Supprimer ' + item.recipe.title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div class="item-total">
+        {{ getItemTotal(item) | price }}
+      </div>
     </div>
   }
 
   @if (selectedRecipe.length === 0) {
     <div class="empty-cart">
-      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
         <circle cx="9" cy="21" r="1"/>
         <circle cx="20" cy="21" r="1"/>
         <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
       </svg>
       <p>Votre panier est vide</p>
+      <span class="empty-hint">Ajoutez des produits pour commencer</span>
     </div>
   }
 </div>
@@ -30,8 +65,8 @@
 @if (selectedRecipe.length > 0) {
   <div class="cart-footer">
     <div class="total">
-      <span>Total</span>
-      <span class="price">{{ getTotalPrice().toFixed(2) }} CHF</span>
+      <span class="total-label">Total</span>
+      <span class="total-price">{{ getTotalPrice() | price }}</span>
     </div>
     <button class="checkout-btn" (click)="saveOrderFromCart()">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

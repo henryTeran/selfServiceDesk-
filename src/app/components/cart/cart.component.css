@@ -1,26 +1,29 @@
 .cart-items {
   flex: 1;
   overflow-y: auto;
-  padding: 25px;
+  padding: 20px;
 }
 
 .cart-item {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 15px;
-  background: #f8f9fa;
+  display: grid;
+  grid-template-columns: 70px 1fr auto;
+  grid-template-rows: auto auto;
+  gap: 12px 15px;
+  padding: 16px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
   border-radius: 12px;
   margin-bottom: 15px;
   transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .cart-item:hover {
-  background: #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
 }
 
-.cart-item img {
+.item-image {
+  grid-row: 1 / 3;
   width: 70px;
   height: 70px;
   border-radius: 10px;
@@ -29,29 +32,90 @@
 }
 
 .item-info {
-  flex: 1;
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.item-info h4 {
-  margin: 0 0 5px 0;
+.item-title {
+  margin: 0 0 4px 0;
   font-size: 16px;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.3;
+}
+
+.item-price {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+}
+
+.item-actions {
+  grid-column: 3;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 4px 8px;
+}
+
+.qty-btn {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+}
+
+.qty-minus svg {
+  stroke: #d32f2f;
+}
+
+.qty-plus svg {
+  stroke: #ff6600;
+}
+
+.qty-btn:hover {
+  background: #f5f5f5;
+  transform: scale(1.1);
+}
+
+.qty-btn:active {
+  transform: scale(0.95);
+}
+
+.quantity-value {
+  min-width: 24px;
+  text-align: center;
+  font-size: 15px;
   font-weight: 700;
   color: #1a1a1a;
 }
 
-.item-info p {
-  margin: 0;
-  font-size: 15px;
-  font-weight: 600;
-  color: #ff6600;
-}
-
 .remove-btn {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   background: rgba(211, 47, 47, 0.1);
   border: 2px solid #d32f2f;
-  border-radius: 50%;
+  border-radius: 8px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -62,7 +126,7 @@
 
 .remove-btn:hover {
   background: #d32f2f;
-  transform: rotate(90deg);
+  transform: scale(1.05);
 }
 
 .remove-btn svg {
@@ -71,7 +135,18 @@
 }
 
 .remove-btn:hover svg {
-  stroke: #fff;
+  stroke: white;
+}
+
+.item-total {
+  grid-column: 2 / 4;
+  grid-row: 2;
+  text-align: right;
+  font-size: 18px;
+  font-weight: 800;
+  color: #ff6600;
+  padding-top: 8px;
+  border-top: 1px solid #e0e0e0;
 }
 
 .empty-cart {
@@ -79,25 +154,31 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 20px;
-  padding: 60px 20px;
+  gap: 16px;
+  padding: 80px 20px;
   text-align: center;
 }
 
 .empty-cart svg {
   stroke: #ccc;
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 .empty-cart p {
   margin: 0;
-  font-size: 18px;
+  font-size: 20px;
   color: #999;
-  font-weight: 500;
+  font-weight: 600;
+}
+
+.empty-hint {
+  font-size: 14px;
+  color: #bbb;
+  font-style: italic;
 }
 
 .cart-footer {
-  padding: 25px;
+  padding: 20px;
   background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
   border-top: 2px solid #e0e0e0;
   box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
@@ -108,19 +189,19 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
-  padding-bottom: 15px;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
   border-bottom: 2px solid #ff6600;
 }
 
-.total span:first-child {
+.total-label {
   font-size: 18px;
   font-weight: 700;
   color: #1a1a1a;
 }
 
-.total .price {
-  font-size: 24px;
+.total-price {
+  font-size: 26px;
   font-weight: 800;
   color: #ff6600;
 }
@@ -154,4 +235,29 @@
 
 .checkout-btn svg {
   stroke: white;
+}
+
+@media (max-width: 480px) {
+  .cart-item {
+    grid-template-columns: 60px 1fr;
+    gap: 10px;
+  }
+
+  .item-image {
+    width: 60px;
+    height: 60px;
+  }
+
+  .item-actions {
+    grid-column: 1 / 3;
+    grid-row: 2;
+    justify-content: space-between;
+    padding-top: 8px;
+    border-top: 1px solid #e0e0e0;
+  }
+
+  .item-total {
+    grid-column: 1 / 3;
+    grid-row: 3;
+  }
 }

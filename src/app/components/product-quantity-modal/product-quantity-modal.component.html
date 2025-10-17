@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Sélectionner la quantité</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="product-modal">
+    <div class="product-image-container">
+      <img [src]="product.imageUrl" [alt]="product.title" class="product-image">
+    </div>
+
+    <div class="product-details">
+      <h2 class="product-title">{{ product.title }}</h2>
+      <p class="product-description">{{ product.description }}</p>
+      <p class="product-price">{{ product.price | price }}</p>
+    </div>
+
+    <div class="quantity-selector">
+      <button
+        class="qty-btn"
+        [disabled]="quantity <= 1"
+        (click)="decrement()">
+        <ion-icon name="remove"></ion-icon>
+      </button>
+
+      <div class="quantity-display">
+        <span class="quantity-number">{{ quantity }}</span>
+      </div>
+
+      <button
+        class="qty-btn"
+        [disabled]="quantity >= 99"
+        (click)="increment()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </div>
+
+    <div class="total-section">
+      <span class="total-label">Total</span>
+      <span class="total-price">{{ getTotalPrice() | price }}</span>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <div class="footer-actions">
+    <button class="add-to-cart-btn" (click)="confirm()">
+      <ion-icon name="add"></ion-icon>
+      Ajouter au panier
+    </button>
+  </div>
+</ion-footer>
