@@ -1,1 +1,98 @@
-<p>choise-payment-page works!</p>
+<div class="payment-page">
+  <div class="payment-container">
+    <header class="payment-header">
+      <button class="back-btn" (click)="cancel()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      <h1>Mode de paiement</h1>
+    </header>
+
+    <div class="order-summary">
+      <h2>Récapitulatif</h2>
+      <div class="summary-items">
+        @for (item of cartItems; track item.recipe.uuid) {
+          <div class="summary-item">
+            <span class="item-name">{{ item.recipe.title }} × {{ item.quantity }}</span>
+            <span class="item-price">{{ item.recipe.price * item.quantity | price }}</span>
+          </div>
+        }
+      </div>
+      <div class="summary-total">
+        <span class="total-label">Total</span>
+        <span class="total-amount">{{ totalPrice | price }}</span>
+      </div>
+    </div>
+
+    <div class="payment-methods">
+      <h2>Choisissez votre mode de paiement</h2>
+
+      <div class="methods-grid">
+        <button
+          class="payment-method-card"
+          [class.selected]="selectedMethod === 'card'"
+          (click)="selectPaymentMethod('card')"
+          [disabled]="isProcessing">
+          <div class="method-icon card-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+              <line x1="1" y1="10" x2="23" y2="10"/>
+            </svg>
+          </div>
+          <h3>Carte bancaire</h3>
+          <p>Paiement par terminal de paiement</p>
+          @if (selectedMethod === 'card') {
+            <div class="selected-badge">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+          }
+        </button>
+
+        <button
+          class="payment-method-card"
+          [class.selected]="selectedMethod === 'cash'"
+          (click)="selectPaymentMethod('cash')"
+          [disabled]="isProcessing">
+          <div class="method-icon cash-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="1" x2="12" y2="23"/>
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </div>
+          <h3>Paiement en caisse</h3>
+          <p>Payez directement au comptoir</p>
+          @if (selectedMethod === 'cash') {
+            <div class="selected-badge">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+          }
+        </button>
+      </div>
+    </div>
+
+    <div class="payment-actions">
+      <button
+        class="btn-cancel"
+        (click)="cancel()"
+        [disabled]="isProcessing">
+        Annuler
+      </button>
+      <button
+        class="btn-confirm"
+        (click)="confirmPayment()"
+        [disabled]="!selectedMethod || isProcessing">
+        @if (isProcessing) {
+          <span class="spinner"></span>
+          Traitement...
+        } @else {
+          Confirmer le paiement
+        }
+      </button>
+    </div>
+  </div>
+</div>

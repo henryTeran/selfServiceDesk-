@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { CartItem } from '../../interfaces';
 import { NotificationService } from '../../services/notifications/notification.service';
 import { CartStore } from '../../services/cart-store.service';
@@ -17,6 +18,7 @@ export class CartComponent {
 
   constructor(
     private readonly _notificationService: NotificationService,
+    private readonly router: Router,
     public readonly cartStore: CartStore
   ) {}
 
@@ -42,7 +44,9 @@ export class CartComponent {
   saveOrderFromCart(): void {
     const items = this.cartStore.items();
     if (items.length > 0) {
-      this.saveOrder.emit(items);
+      this.router.navigate(['/payment/select']);
+    } else {
+      this._notificationService.warning('Votre panier est vide !');
     }
   }
 

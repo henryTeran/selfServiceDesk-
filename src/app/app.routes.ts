@@ -5,6 +5,8 @@ import { OrderPage } from './pages/order-page/order-page';
 import { ChoiseOrderPageComponent } from './pages/choise-order-page/choise-order-page.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 import { AdminOrdersPageComponent } from './pages/admin-orders-page/admin-orders-page.component';
+import { ChoisePaymentPageComponent } from './pages/choise-payment-page/choise-payment-page.component';
+import { ValidationPageComponent } from './pages/validation-page/validation-page.component';
 
 export const routes: Routes = [
   {
@@ -31,6 +33,14 @@ export const routes: Routes = [
   {
     path: 'admin/orders',
     component: AdminOrdersPageComponent,
+  },
+  {
+    path: 'payment/select',
+    component: ChoisePaymentPageComponent,
+  },
+  {
+    path: 'payment/receipt',
+    component: ValidationPageComponent,
   },
   {
     path: '**',

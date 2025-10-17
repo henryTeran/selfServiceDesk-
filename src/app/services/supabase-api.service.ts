@@ -128,6 +128,21 @@ export class SupabaseApiService {
     return data as OrderResponse | null;
   }
 
+  async getOrderById(orderId: string): Promise<OrderResponse | null> {
+    const { data, error } = await this.supabase
+      .from('orders')
+      .select('*')
+      .eq('id', orderId)
+      .maybeSingle();
+
+    if (error) {
+      console.error('Erreur lors de la récupération de la commande :', error);
+      throw error;
+    }
+
+    return data as OrderResponse | null;
+  }
+
   async updateOrderStatus(orderId: string, status: string): Promise<void> {
     const updateData: { status: string; completed_at?: string } = { status };
 
