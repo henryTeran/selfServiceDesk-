@@ -26,7 +26,7 @@
   @if (selectedRecipe.length > 0) {
     <div class="cart-footer">
       <div class="total">Total : {{ getTotalPrice() }} CHF</div>
-      <button class="checkout-btn" (click)="saveOrderFromCart(selectedRecipe)">Commander</button>
+      <button class="checkout-btn" (click)="saveOrderFromCart()">Commander</button>
     </div>
   }
 </div>

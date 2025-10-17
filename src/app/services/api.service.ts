@@ -8,9 +8,6 @@ import { BehaviorSubject, firstValueFrom, map, Observable, shareReplay } from "r
 })
 
 export class APIService  {
-  selectedRecipe: Recipe[] = [];
-  loading = true;
-
   private readonly _data$ = new BehaviorSubject<Restaurant | null>(null); 
   private readonly _photoResto$ = new BehaviorSubject<string>(""); 
   private readonly _selectedCategory$ = new BehaviorSubject<Category | null>(null); 
@@ -59,17 +56,4 @@ export class APIService  {
   selectCategory(category: Category): void {
     this._selectedCategory$.next(category);
   }
-
-
-
-  addToCart(recipe: Recipe): Recipe[] {
-    this.selectedRecipe.push(recipe);
-    return this.selectedRecipe;
-  }
-
-  removeFromCart(recipe: Recipe): Recipe[] {
-    this.selectedRecipe = this.selectedRecipe.filter(item => item.uuid !== recipe.uuid);
-    return this.selectedRecipe;
-  }
-  
 }

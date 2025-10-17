@@ -20,7 +20,7 @@
       </div>
 
       <!-- PANIER À DROITE -->
-      <app-cart [selectedRecipe]="selectedRecipe" (removeSelectFromCart)="removeFromCart($event)" (saveOrder) = "saveOrder($event)"></app-cart>
+      <app-cart (saveOrder)="saveOrder($event)"></app-cart>
   </div>
 
 

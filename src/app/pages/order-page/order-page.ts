@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { firstValueFrom, Observable, switchMap } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { APIService } from '../../services/api.service';
 import { FirebaseApiService } from '../../services/firebase-api.service';
+import { CartStore } from '../../services/cart-store.service';
+import { NotificationService } from '../../services/notifications/notification.service';
 import { Category, Recipe, Restaurant, SimplifiedRecipe } from '../../interfaces';
 import { HeaderComponent } from '../../components/header/header.component';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
@@ -30,11 +32,12 @@ export class OrderPage implements OnInit {
   public RestoInfo$!: Observable<Restaurant | null>;
   public Categories$!: Observable<Category[]>;
   public selectedCategory$!: Observable<Category | null>;
-  public selectedRecipe: Recipe[] = [];
 
   constructor(
     private readonly _apiService: APIService,
     private readonly _firebaseService: FirebaseApiService,
+    private readonly _cartStore: CartStore,
+    private readonly _notificationService: NotificationService,
     private readonly _activatedRoute: ActivatedRoute
   ) { }
 
@@ -64,14 +67,15 @@ export class OrderPage implements OnInit {
   }
 
   addRecipeToCart(recipe: Recipe): void {
-    this.selectedRecipe = this._apiService.addToCart(recipe);
-  }
-
-  removeFromCart(recipe: Recipe): void {
-    this.selectedRecipe = this._apiService.removeFromCart(recipe);
+    this._cartStore.add(recipe);
   }
 
   async saveOrder(recipes: Recipe[]): Promise<void> {
+    if (recipes.length === 0) {
+      this._notificationService.show('Le panier est vide !');
+      return;
+    }
+
     const orderDataFormat: SimplifiedRecipe[] = recipes.map(r => ({
       uuid: r.uuid,
       title: r.title,
@@ -80,7 +84,13 @@ export class OrderPage implements OnInit {
       imageUrl: r.imageUrl
     }));
 
-    await this._firebaseService.saveOrder(orderDataFormat);
-    this.selectedRecipe = [];
+    try {
+      await this._firebaseService.saveOrder(orderDataFormat);
+      this._notificationService.show('Commande envoyée avec succès !');
+      this._cartStore.clear();
+    } catch (error) {
+      console.error('Erreur lors de l\'enregistrement de la commande :', error);
+      this._notificationService.show('Erreur lors de l\'envoi de la commande');
+    }
   }
 }

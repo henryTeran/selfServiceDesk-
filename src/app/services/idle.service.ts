@@ -1,6 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { NotificationService } from './notifications/notification.service';
+import { CartStore } from './cart-store.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ export class IdleService {
   constructor(
     private router: Router,
     private ngZone: NgZone,
-    private _notificationService: NotificationService
+    private _notificationService: NotificationService,
+    private _cartStore: CartStore
   ) { 
     this.initListener();
     this.resetTimer();
@@ -38,6 +40,7 @@ export class IdleService {
             this._notificationService.show('Retour à l’accueil dans 10 secondes...');
             
             this.redirectTimeout = setTimeout(() => {
+              this._cartStore.clear();
               this.router.navigate(['/home']);
             }, this.COUNTDOWN_DURATION);
           }
