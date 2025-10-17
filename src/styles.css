@@ -1,53 +1,254 @@
-/*  Définition des couleurs principales */
-:root {
-    --bg-color: #f9f9f9;
-    --text-color: #222;
-    --primary-color: #e60000;
-    --card-bg: #fff;
-    --muted-text: #555;
+* {
+  box-sizing: border-box;
 }
 
-/*  Mode sombre */
-.dark-mode {
-    --bg-color: #181818;
-    --text-color: #f5f5f5;
-    --primary-color: #ff4500;
-    --card-bg: #222;
-    --muted-text: #ccc;
-}
-
-/*  Application des couleurs */
 body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--ion-background-color);
+  color: var(--ion-text-color);
+  transition: background-color var(--transition-base), color var(--transition-base);
 }
 
-/*  Style des cartes produit */
 .product-card {
-    background-color: var(--card-bg);
-    color: var(--text-color);
+  background-color: var(--ion-color-step-50);
+  color: var(--ion-text-color);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-md);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  cursor: pointer;
+  border: 1px solid var(--ion-color-step-100);
 }
 
-/* Sous-éléments dans les cartes */
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--ion-color-primary);
+}
+
+.product-card:focus-within {
+  outline: 2px solid var(--ion-color-primary);
+  outline-offset: 2px;
+}
+
 .product-card .product-title {
-    color: var(--text-color);
-    font-weight: bold;
+  color: var(--ion-text-color);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-xs);
+  line-height: var(--line-height-tight);
 }
 
 .product-card .product-description {
-    color: var(--muted-text); /* un peu plus doux */
-    font-size: 0.95rem;
+  color: var(--ion-color-step-700);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-sm);
+  line-height: var(--line-height-normal);
 }
 
 .product-card .product-price {
-    color: var(--text-color);
-    font-weight: 600;
+  color: var(--ion-color-primary);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-xl);
+}
+
+.product-card .product-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: var(--border-radius-md);
+  margin-bottom: var(--spacing-sm);
+}
+
+ion-button {
+  --border-radius: var(--border-radius-md);
+  --padding-start: var(--spacing-lg);
+  --padding-end: var(--spacing-lg);
+  --padding-top: var(--spacing-md);
+  --padding-bottom: var(--spacing-md);
+  font-weight: var(--font-weight-semibold);
+  text-transform: none;
+  letter-spacing: 0.025em;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+ion-button:hover:not([disabled]) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+ion-button:active:not([disabled]) {
+  transform: translateY(0);
+}
+
+ion-button.button-large {
+  --padding-start: var(--spacing-xl);
+  --padding-end: var(--spacing-xl);
+  --padding-top: var(--spacing-lg);
+  --padding-bottom: var(--spacing-lg);
+  font-size: var(--font-size-lg);
+  min-height: 64px;
+}
+
+ion-card {
+  --background: var(--ion-color-step-50);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+ion-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+ion-input, ion-textarea {
+  --background: var(--ion-color-step-100);
+  --border-radius: var(--border-radius-md);
+  --padding-start: var(--spacing-md);
+  --padding-end: var(--spacing-md);
+  --padding-top: var(--spacing-sm);
+  --padding-bottom: var(--spacing-sm);
+  transition: border-color var(--transition-fast);
+}
+
+ion-input:focus-within, ion-textarea:focus-within {
+  --border-color: var(--ion-color-primary);
 }
 
 .custom-snackbar {
-    background-color: green;
-    color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); 
+  background-color: var(--ion-color-success);
+  color: var(--ion-color-success-contrast);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-xl);
+  padding: var(--spacing-md) var(--spacing-lg);
+  font-weight: var(--font-weight-medium);
+}
+
+.bottom-cart-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, var(--ion-color-step-50) 0%, var(--ion-color-step-50) 90%, transparent 100%);
+  padding: var(--spacing-md);
+  box-shadow: var(--shadow-xl);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+}
+
+.bottom-cart-bar ion-button {
+  flex: 1;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .bottom-cart-bar {
+    padding: var(--spacing-sm);
   }
+}
+
+.fade-in {
+  animation: fadeIn var(--transition-slow) ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-up {
+  animation: slideUp var(--transition-base) ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scale-in {
+  animation: scaleIn var(--transition-fast) ease-out;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+ion-toast {
+  --border-radius: var(--border-radius-md);
+  --box-shadow: var(--shadow-xl);
+}
+
+ion-modal {
+  --border-radius: var(--border-radius-xl);
+  --box-shadow: var(--shadow-xl);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-muted {
+  color: var(--ion-color-step-700);
+}
+
+.font-bold {
+  font-weight: var(--font-weight-bold);
+}
+
+.font-semibold {
+  font-weight: var(--font-weight-semibold);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+[aria-busy="true"] {
+  cursor: wait;
+}
+
+[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ion-color-primary);
+  outline-offset: 2px;
+}

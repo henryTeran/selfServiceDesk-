@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { APIService } from '../../services/api.service';
 import { Restaurant } from '../../interfaces';
-import { Router } from '@angular/router';
-import { IonAvatar, IonButton, IonContent, IonImg, IonItem, IonLabel, IonNote, NavController } from '@ionic/angular/standalone';
+import { IonButton, IonContent, NavController } from '@ionic/angular/standalone';
 @Component({
   selector: 'app-home-page',
-  imports: [IonButton, IonContent, IonImg, IonLabel, IonItem, IonNote,  IonAvatar],
+  imports: [IonButton, IonContent],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })

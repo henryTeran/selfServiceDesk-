@@ -1,24 +1,49 @@
 <ion-content fullscreen>
-    <div class="background">
-      <div class="cta-section">
-        <h1>Veuillez choisir</h1>
-        <div class="choices">
-          <div class="overlay">
-            <ion-grid>
-              <ion-row class="ion-justify-content-center ion-align-items-center">
-                <ion-col size="6" size-md="6" class="option">
-                  <ion-img src="assets/emporter-removebg-preview.png" alt="Emporter" class="choice-img" (click)="selectChoice(1)"></ion-img>
+  <div class="background">
+    <div class="cta-section">
+      <h1 class="fade-in">Choisissez votre mode de commande</h1>
+      <div class="choices">
+        <div class="overlay">
+          <ion-grid>
+            <ion-row class="ion-justify-content-center ion-align-items-center">
+              <ion-col size="6" size-md="5" class="option">
+                <button
+                  class="choice-button"
+                  (click)="selectChoice(1)"
+                  [class.selected]="selectedChoice === 1"
+                  aria-label="Commander à emporter"
+                >
+                  <div class="choice-img-wrapper scale-in">
+                    <ion-img
+                      src="assets/emporter-removebg-preview.png"
+                      alt="À emporter"
+                      class="choice-img"
+                    ></ion-img>
+                  </div>
                   <ion-label>À emporter</ion-label>
-                </ion-col>
-                <ion-col size="6" size-md="6" class="option">
-                  <ion-img src="assets/surplace-removebg-preview.png" alt="SurPlace" class="choice-img" (click)="selectChoice(2)"></ion-img>
+                </button>
+              </ion-col>
+              <ion-col size="6" size-md="5" class="option">
+                <button
+                  class="choice-button"
+                  (click)="selectChoice(2)"
+                  [class.selected]="selectedChoice === 2"
+                  aria-label="Commander sur place"
+                >
+                  <div class="choice-img-wrapper scale-in" style="animation-delay: 150ms">
+                    <ion-img
+                      src="assets/surplace-removebg-preview.png"
+                      alt="Sur place"
+                      class="choice-img"
+                    ></ion-img>
+                  </div>
                   <ion-label>Sur place</ion-label>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </div>
+                </button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
         </div>
       </div>
     </div>
-  </ion-content>
-  
+  </div>
+</ion-content>

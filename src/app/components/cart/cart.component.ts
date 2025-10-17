@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Recipe } from '../../interfaces';
 import { NotificationService } from '../../services/notifications/notification.service';
-import { FirebeseApiService } from '../../services/firebese-api.service';
+import { FirebaseApiService } from '../../services/firebase-api.service';
 
 @Component({
   selector: 'app-cart',
@@ -22,7 +22,7 @@ export class CartComponent {
  
   constructor(
     private readonly _notificationService: NotificationService,
-    private readonly _apiFirebase: FirebeseApiService
+    private readonly _apiFirebase: FirebaseApiService
   ) {}
 
     

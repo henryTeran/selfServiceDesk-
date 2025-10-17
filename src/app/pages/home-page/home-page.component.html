@@ -1,13 +1,26 @@
 @if (RestoInfo) {
   <ion-content fullscreen [scrollY]="false" class="home-screen">
-    <div class="background-img"></div>
+    <div class="background-img" [attr.aria-hidden]="true"></div>
 
     <div class="cta-content">
-      <h1>{{ RestoInfo.title }}</h1>
-      <p>Toucher l'écran pour commencer !</p>
-      <img src="assets/hand.png" alt="Touchez l'écran" class="touch-icon" />
+      <h1 class="fade-in">{{ RestoInfo.title }}</h1>
+      <p class="fade-in" style="animation-delay: 150ms">Touchez l'écran pour commencer</p>
+      <img
+        src="assets/hand.png"
+        alt="Animation de la main pour toucher l'écran"
+        class="touch-icon"
+        [attr.aria-hidden]="true"
+      />
     </div>
 
-    <ion-button class="start-btn-fullscreen" fill="clear" (click)="startOrdering()"></ion-button>
+    <ion-button
+      class="start-btn-fullscreen"
+      fill="clear"
+      (click)="startOrdering()"
+      aria-label="Commencer la commande"
+      expand="block"
+    >
+      <span class="sr-only">Commencer votre commande</span>
+    </ion-button>
   </ion-content>
 }

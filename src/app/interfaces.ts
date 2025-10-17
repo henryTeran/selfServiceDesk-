@@ -29,7 +29,13 @@ export interface Recipe {
   tagSection: TagSection | null;
 }
 
-export type SimplifiedRecipe = Pick<Recipe, 'uuid' | 'title' | 'description' | 'price'>;
+export interface SimplifiedRecipe {
+  uuid: string;
+  title: string;
+  description: string;
+  price: number;
+  imageUrl: string;
+}
 
 export interface NutritionalInfo {
   allergens: string;
