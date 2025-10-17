@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { APIService } from '../../services/api.service';
 import { map, Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { IonCol, IonContent, IonGrid, IonImg, IonRow, NavController } from '@ionic/angular/standalone';
+import { NavController } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-dashboard-page',
-  imports: [IonContent, IonImg, CommonModule, IonGrid, IonRow, IonCol],
+  imports: [CommonModule],
   templateUrl: './dashboard-page.component.html',
   styleUrl: './dashboard-page.component.css'
 })

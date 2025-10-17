@@ -1,49 +1,56 @@
-<ion-content fullscreen>
-  <div class="background">
-    <div class="cta-section">
-      <h1 class="fade-in">Choisissez votre mode de commande</h1>
-      <div class="choices">
-        <div class="overlay">
-          <ion-grid>
-            <ion-row class="ion-justify-content-center ion-align-items-center">
-              <ion-col size="6" size-md="5" class="option">
-                <button
-                  class="choice-button"
-                  (click)="selectChoice(1)"
-                  [class.selected]="selectedChoice === 1"
-                  aria-label="Commander à emporter"
-                >
-                  <div class="choice-img-wrapper scale-in">
-                    <ion-img
-                      src="assets/emporter-removebg-preview.png"
-                      alt="À emporter"
-                      class="choice-img"
-                    ></ion-img>
-                  </div>
-                  <ion-label>À emporter</ion-label>
-                </button>
-              </ion-col>
-              <ion-col size="6" size-md="5" class="option">
-                <button
-                  class="choice-button"
-                  (click)="selectChoice(2)"
-                  [class.selected]="selectedChoice === 2"
-                  aria-label="Commander sur place"
-                >
-                  <div class="choice-img-wrapper scale-in" style="animation-delay: 150ms">
-                    <ion-img
-                      src="assets/surplace-removebg-preview.png"
-                      alt="Sur place"
-                      class="choice-img"
-                    ></ion-img>
-                  </div>
-                  <ion-label>Sur place</ion-label>
-                </button>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
+<div class="choise-modern">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+
+  <div class="content-wrapper">
+    <header class="page-header">
+      <h1 class="animate-fade-in">Comment souhaitez-vous être servi ?</h1>
+      <p class="subtitle animate-fade-in-delay">Choisissez votre mode de commande</p>
+    </header>
+
+    <div class="choices-grid">
+      <button
+        class="choice-card animate-scale-in"
+        [class.selected]="selectedChoice === 1"
+        (click)="selectChoice(1)">
+        <div class="card-icon">
+          <img src="assets/emporter-removebg-preview.png" alt="À emporter">
         </div>
-      </div>
+        <h2>À emporter</h2>
+        <p>Commandez et récupérez votre repas</p>
+        <div class="card-badge">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 11l3 3L22 4"/>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+          </svg>
+        </div>
+      </button>
+
+      <button
+        class="choice-card animate-scale-in-delay"
+        [class.selected]="selectedChoice === 2"
+        (click)="selectChoice(2)">
+        <div class="card-icon">
+          <img src="assets/surplace-removebg-preview.png" alt="Sur place">
+        </div>
+        <h2>Sur place</h2>
+        <p>Profitez de votre repas au restaurant</p>
+        <div class="card-badge">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 11l3 3L22 4"/>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+          </svg>
+        </div>
+      </button>
+    </div>
+
+    <div class="info-banner animate-fade-in-delay-2">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="16" x2="12" y2="12"/>
+        <line x1="12" y1="8" x2="12.01" y2="8"/>
+      </svg>
+      <p>Sélectionnez une option pour continuer votre commande</p>
     </div>
   </div>
-</ion-content>
+</div>

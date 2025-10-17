@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { APIService } from '../../services/api.service';
 import { Restaurant } from '../../interfaces';
-import { IonButton, IonContent, NavController } from '@ionic/angular/standalone';
+import { NavController } from '@ionic/angular/standalone';
+import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-home-page',
-  imports: [IonButton, IonContent],
+  imports: [CommonModule],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })

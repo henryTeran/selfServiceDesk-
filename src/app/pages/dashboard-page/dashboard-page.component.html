@@ -1,28 +1,37 @@
 @if(photo$ | async; as photo) {
-  <ion-content>
+  <div class="menus-modern">
+    <div class="hero-background" [style.background-image]="'url(' + photo + ')'"></div>
+    <div class="hero-overlay"></div>
 
-    <div class="background" [style.backgroundImage]="'url(' + photo + ')'">
-      <div class="overlay"></div>
-      
-      <h1 class="title">Choisis ton menu !</h1>
-      
+    <div class="content-container">
+      <header class="page-header">
+        <h1 class="animate-fade-in">Explorez notre menu</h1>
+        <p class="subtitle animate-fade-in-delay">Découvrez nos différentes catégories</p>
+      </header>
+
       @if (categories$ | async; as categories) {
-
-        <div class="menu-grid">
+        <div class="categories-grid">
           @for (cat of categories; track cat.uuid) {
-            <div class="menu-item" [attr.data-category]="cat.name" (click)="onMenuItemClick(cat.uuid)"> 
-              <ion-grid [fixed]="true">
-                <ion-row>
-                    <ion-col class="option">
-                      <ion-img [src]="cat.image" alt="{{ cat.name }}" class="img"/>
-                      <h2>{{ cat.name }}</h2>
-                    </ion-col>
-                </ion-row>
-              </ion-grid>
-            </div>
+            <article
+              class="category-card animate-scale-in"
+              [style.animation-delay]="$index * 0.1 + 's'"
+              (click)="onMenuItemClick(cat.uuid)">
+              <div class="card-image">
+                <img [src]="cat.image" [alt]="cat.name">
+                <div class="card-overlay"></div>
+              </div>
+              <div class="card-content">
+                <h2>{{ cat.name }}</h2>
+                <div class="card-arrow">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </div>
+              </div>
+            </article>
           }
         </div>
       }
     </div>
-  </ion-content>
+  </div>
 }

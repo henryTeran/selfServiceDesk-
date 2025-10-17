@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { APIService } from '../../services/api.service';
 import { Restaurant } from '../../interfaces';
 import { ChoiseService } from '../../services/choise.service';
-import { IonContent, IonGrid, IonImg, NavController, IonCol, IonRow, IonLabel } from '@ionic/angular/standalone';
+import { NavController } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-choise-order-page',
-  imports: [CommonModule, IonContent, IonImg, IonGrid, IonCol, IonRow, IonLabel],
+  imports: [CommonModule],
   templateUrl: './choise-order-page.component.html',
   styleUrl: './choise-order-page.component.css'
 })
