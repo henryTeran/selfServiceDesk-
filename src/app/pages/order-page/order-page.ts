@@ -19,10 +19,7 @@ import { NotificationComponent } from '../../components/notification/notificatio
   selector: 'app-order-page',
   imports: [
     CommonModule,
-    HeaderComponent,
-    SidebarComponent,
     FooterComponent,
-    RecipeComponent,
     CartComponent,
     NotificationComponent
   ],
@@ -33,6 +30,11 @@ export class OrderPage implements OnInit {
   public RestoInfo$!: Observable<Restaurant | null>;
   public Categories$!: Observable<Category[]>;
   public selectedCategory$!: Observable<Category | null>;
+  public isCartOpen = false;
+
+  get cartItemCount(): number {
+    return this._cartStore.itemCount();
+  }
 
   constructor(
     private readonly _apiService: APIService,
@@ -70,6 +72,11 @@ export class OrderPage implements OnInit {
 
   addRecipeToCart(recipe: Recipe): void {
     this._cartStore.add(recipe);
+    this.isCartOpen = true;
+  }
+
+  toggleCart(): void {
+    this.isCartOpen = !this.isCartOpen;
   }
 
   async saveOrder(recipes: Recipe[]): Promise<void> {
