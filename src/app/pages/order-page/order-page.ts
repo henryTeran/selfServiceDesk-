@@ -74,6 +74,10 @@ export class OrderPage implements OnInit {
     this.isCartOpen = !this.isCartOpen;
   }
 
+  closeCart(): void {
+    this.isCartOpen = false;
+  }
+
   async saveOrder(recipes: Recipe[]): Promise<void> {
     if (recipes.length === 0) {
       this._notificationService.warning('Le panier est vide !');
