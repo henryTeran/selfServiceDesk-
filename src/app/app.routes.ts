@@ -4,6 +4,7 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { OrderPage } from './pages/order-page/order-page';
 import { ChoiseOrderPageComponent } from './pages/choise-order-page/choise-order-page.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
+import { AdminOrdersPageComponent } from './pages/admin-orders-page/admin-orders-page.component';
 
 export const routes: Routes = [
   {
@@ -26,6 +27,10 @@ export const routes: Routes = [
   {
     path: 'order/:uuid',
     component: OrderPage,
+  },
+  {
+    path: 'admin/orders',
+    component: AdminOrdersPageComponent,
   },
   {
     path: '**',

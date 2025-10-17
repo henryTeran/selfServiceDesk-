@@ -89,4 +89,22 @@ export class SupabaseApiService {
 
     return data as OrderResponse | null;
   }
+
+  async updateOrderStatus(orderId: string, status: string): Promise<void> {
+    const updateData: { status: string; completed_at?: string } = { status };
+
+    if (status === 'completed') {
+      updateData.completed_at = new Date().toISOString();
+    }
+
+    const { error } = await this.supabase
+      .from('orders')
+      .update(updateData)
+      .eq('id', orderId);
+
+    if (error) {
+      console.error('Erreur lors de la mise à jour du statut :', error);
+      throw error;
+    }
+  }
 }

@@ -1,0 +1,74 @@
+<div class="admin-container">
+  <header class="admin-header">
+    <h1>Gestion des Commandes</h1>
+    <button class="refresh-btn" (click)="loadOrders()" [disabled]="isLoading()">
+      {{ isLoading() ? 'Chargement...' : 'Actualiser' }}
+    </button>
+  </header>
+
+  <div class="filters">
+    <label for="status-filter">Filtrer par statut :</label>
+    <select id="status-filter" [value]="selectedStatus()" (change)="onStatusFilterChange($event)">
+      <option value="all">Toutes</option>
+      <option value="pending">En attente</option>
+      <option value="completed">Terminées</option>
+      <option value="cancelled">Annulées</option>
+    </select>
+    <span class="count">{{ filteredOrders().length }} commande(s)</span>
+  </div>
+
+  <div class="orders-list">
+    @if (isLoading()) {
+      <div class="loading">Chargement des commandes...</div>
+    } @else if (filteredOrders().length === 0) {
+      <div class="empty">Aucune commande trouvée</div>
+    } @else {
+      @for (order of filteredOrders(); track order.id) {
+        <div class="order-card">
+          <div class="order-header" (click)="toggleOrderDetails(order.id)">
+            <div class="order-info">
+              <h3>{{ order.order_number }}</h3>
+              <span class="order-type">{{ order.order_type === 'emporter' ? 'À emporter' : 'Sur place' }}</span>
+              <span class="badge" [class]="getStatusBadgeClass(order.status)">
+                {{ getStatusLabel(order.status) }}
+              </span>
+            </div>
+            <div class="order-meta">
+              <span class="total">{{ order.total_price.toFixed(2) }} CHF</span>
+              <span class="date">{{ formatDate(order.created_at) }}</span>
+              <span class="toggle">{{ expandedOrderId() === order.id ? '▼' : '▶' }}</span>
+            </div>
+          </div>
+
+          @if (expandedOrderId() === order.id) {
+            <div class="order-details">
+              <div class="items-list">
+                <h4>Articles ({{ order.items.length }})</h4>
+                @for (item of order.items; track item.uuid) {
+                  <div class="item">
+                    <img [src]="item.imageUrl" [alt]="item.title" />
+                    <div class="item-info">
+                      <span class="item-title">{{ item.title }}</span>
+                      <span class="item-price">{{ item.price.toFixed(2) }} CHF</span>
+                    </div>
+                  </div>
+                }
+              </div>
+
+              @if (order.status === 'pending') {
+                <div class="actions">
+                  <button class="btn-complete" (click)="updateOrderStatus(order.id, 'completed')">
+                    Marquer comme terminée
+                  </button>
+                  <button class="btn-cancel" (click)="updateOrderStatus(order.id, 'cancelled')">
+                    Annuler
+                  </button>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
+    }
+  </div>
+</div>
