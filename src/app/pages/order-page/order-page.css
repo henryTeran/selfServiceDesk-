@@ -1,8 +1,10 @@
 .order-page-modern {
   min-height: 100vh;
+  height: 100vh;
   background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .top-header {
@@ -80,8 +82,7 @@
 }
 
 .categories-bar {
-  position: sticky;
-  top: 90px;
+  flex-shrink: 0;
   z-index: 90;
   background: #fff;
   border-bottom: 1px solid #e0e0e0;
@@ -157,8 +158,10 @@
   flex: 1;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 40px 30px 100px;
+  padding: 40px 30px 40px;
   width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .section-header {

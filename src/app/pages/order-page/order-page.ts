@@ -8,10 +8,6 @@ import { CartStore } from '../../services/cart-store.service';
 import { NotificationService } from '../../services/notifications/notification.service';
 import { ChoiseService } from '../../services/choise.service';
 import { Category, Recipe, Restaurant, SimplifiedRecipe } from '../../interfaces';
-import { HeaderComponent } from '../../components/header/header.component';
-import { SidebarComponent } from '../../components/sidebar/sidebar.component';
-import { FooterComponent } from '../../components/footer/footer.component';
-import { RecipeComponent } from '../../components/recipe/recipe.component';
 import { CartComponent } from '../../components/cart/cart.component';
 import { NotificationComponent } from '../../components/notification/notification.component';
 
@@ -19,7 +15,6 @@ import { NotificationComponent } from '../../components/notification/notificatio
   selector: 'app-order-page',
   imports: [
     CommonModule,
-    FooterComponent,
     CartComponent,
     NotificationComponent
   ],
