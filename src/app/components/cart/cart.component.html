@@ -1,32 +1,43 @@
-<div class="cart-overlay" [class.show]="cartOpen" (click)="toggleCart()"></div>
-
-<div class="cart" [class.open]="cartOpen">
-  <div class="cart-header">
-    <h2>🛒 Votre commande</h2>
-    <button class="close-btn" (click)="toggleCart()">✖</button>
-  </div>
-
-  <div class="cart-items">
-    @for (item of selectedRecipe; track item.uuid) {
-      <div class="cart-item">
-        <img src="{{ item.imageUrl }}" alt="{{ item.title }}" />
-        <div class="item-info">
-          <h4>{{ item.title }}</h4>
-          <p>{{ item.price }} CHF</p>
-        </div>
-        <button class="remove-btn" (click)="removeFromCart(item)">✖</button>
+<div class="cart-items">
+  @for (item of selectedRecipe; track item.uuid) {
+    <div class="cart-item">
+      <img src="{{ item.imageUrl }}" alt="{{ item.title }}" />
+      <div class="item-info">
+        <h4>{{ item.title }}</h4>
+        <p>{{ item.price.toFixed(2) }} CHF</p>
       </div>
-    }
+      <button class="remove-btn" (click)="removeFromCart(item)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  }
 
-    @if (selectedRecipe.length === 0) {
-      <p class="empty-cart">Votre panier est vide</p>
-    }
-  </div>
-
-  @if (selectedRecipe.length > 0) {
-    <div class="cart-footer">
-      <div class="total">Total : {{ getTotalPrice() }} CHF</div>
-      <button class="checkout-btn" (click)="saveOrderFromCart()">Commander</button>
+  @if (selectedRecipe.length === 0) {
+    <div class="empty-cart">
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="9" cy="21" r="1"/>
+        <circle cx="20" cy="21" r="1"/>
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+      </svg>
+      <p>Votre panier est vide</p>
     </div>
   }
 </div>
+
+@if (selectedRecipe.length > 0) {
+  <div class="cart-footer">
+    <div class="total">
+      <span>Total</span>
+      <span class="price">{{ getTotalPrice().toFixed(2) }} CHF</span>
+    </div>
+    <button class="checkout-btn" (click)="saveOrderFromCart()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+      Commander
+    </button>
+  </div>
+}

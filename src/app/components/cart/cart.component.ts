@@ -13,16 +13,10 @@ import { CartStore } from '../../services/cart-store.service';
 export class CartComponent {
   @Output() saveOrder = new EventEmitter<Recipe[]>();
 
-  cartOpen = false;
-
   constructor(
     private readonly _notificationService: NotificationService,
     public readonly cartStore: CartStore
   ) {}
-
-  toggleCart(): void {
-    this.cartOpen = !this.cartOpen;
-  }
 
   removeFromCart(recipe: Recipe): void {
     this.cartStore.remove(recipe.uuid);
