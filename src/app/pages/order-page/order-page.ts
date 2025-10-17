@@ -1,30 +1,36 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { firstValueFrom, Observable, switchMap } from 'rxjs';
+import { CommonModule } from '@angular/common';
 import { APIService } from '../../services/api.service';
-import { HeaderComponent } from '../../components/header/header.component';
+import { FirebaseApiService } from '../../services/firebase-api.service';
 import { Category, Recipe, Restaurant, SimplifiedRecipe } from '../../interfaces';
+import { HeaderComponent } from '../../components/header/header.component';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { RecipeComponent } from '../../components/recipe/recipe.component';
 import { CartComponent } from '../../components/cart/cart.component';
 import { NotificationComponent } from '../../components/notification/notification.component';
-import { firstValueFrom, map, Observable } from 'rxjs';
-import { CommonModule } from '@angular/common';
-import { FirebaseApiService } from '../../services/firebase-api.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-order-page',
-  imports: [HeaderComponent, SidebarComponent, FooterComponent, RecipeComponent, CartComponent, NotificationComponent, CommonModule],
+  imports: [
+    CommonModule,
+    HeaderComponent,
+    SidebarComponent,
+    FooterComponent,
+    RecipeComponent,
+    CartComponent,
+    NotificationComponent
+  ],
   templateUrl: './order-page.html',
   styleUrls: ['./order-page.css']
 })
-
 export class OrderPage implements OnInit {
   public RestoInfo$!: Observable<Restaurant | null>;
-  public Categories$!: Observable<Category[] | undefined>;
-  public selectedCategory$?: Observable<Category | null>;
+  public Categories$!: Observable<Category[]>;
+  public selectedCategory$!: Observable<Category | null>;
   public selectedRecipe: Recipe[] = [];
-  public currentRoute$!: Observable<string>;
 
   constructor(
     private readonly _apiService: APIService,
@@ -32,42 +38,40 @@ export class OrderPage implements OnInit {
     private readonly _activatedRoute: ActivatedRoute
   ) { }
 
-  ngOnInit()  {
-    this.Categories$ = this._apiService.data$.pipe(
-      map((data) => {
-        return data?.data;
-      })
-    );
+  async ngOnInit(): Promise<void> {
+    await this._apiService.getRecipeWithHpptRequest();
 
     this.RestoInfo$ = this._apiService.data$;
+    this.Categories$ = this._apiService.getCategories();
 
-    firstValueFrom(this._activatedRoute.paramMap).then(params => {
-      const uuid = params.get('uuid');
-      console.log('From firstValueFrom →', uuid);
-    });
+    const params = await firstValueFrom(this._activatedRoute.paramMap);
+    const uuid = params.get('uuid');
 
+    if (uuid) {
+      this.selectedCategory$ = this._apiService.getCategoryByUuid(uuid);
+      const category = await firstValueFrom(this.selectedCategory$);
+      if (category) {
+        this._apiService.selectCategory(category);
+      }
+    } else {
+      this.selectedCategory$ = this._apiService.selectedCategory$;
+    }
   }
 
-  selectCategory(category: Category) {
+  selectCategory(category: Category): void {
     this._apiService.selectCategory(category);
     this.selectedCategory$ = this._apiService.selectedCategory$;
-    console.log('Catégorie sélectionnée:', this.selectedCategory$);
   }
 
-  addRecipeToCart(recipe: Recipe) {
-    if (!this.selectedRecipe) {
-      this.selectedRecipe = [];
-    }
+  addRecipeToCart(recipe: Recipe): void {
     this.selectedRecipe = this._apiService.addToCart(recipe);
-    console.log("Return servie", this.selectedRecipe);
   }
 
-  removeFromCart (recipe: Recipe) {
+  removeFromCart(recipe: Recipe): void {
     this.selectedRecipe = this._apiService.removeFromCart(recipe);
   }
 
-
-  async saveOrder(recipes: Recipe[]) {
+  async saveOrder(recipes: Recipe[]): Promise<void> {
     const orderDataFormat: SimplifiedRecipe[] = recipes.map(r => ({
       uuid: r.uuid,
       title: r.title,
@@ -76,8 +80,7 @@ export class OrderPage implements OnInit {
       imageUrl: r.imageUrl
     }));
 
-    const result = await this._firebaseService.saveOrder(orderDataFormat);
-    console.log('Commandes enregistrées :', result);
+    await this._firebaseService.saveOrder(orderDataFormat);
     this.selectedRecipe = [];
   }
 }
