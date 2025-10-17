@@ -24,10 +24,15 @@
       <div class="empty">Aucune commande trouvée</div>
     } @else {
       @for (order of filteredOrders(); track order.id) {
-        <div class="order-card">
+        <div class="order-card" [class.new-order]="isNewOrder(order.id)">
           <div class="order-header" (click)="toggleOrderDetails(order.id)">
             <div class="order-info">
-              <h3>{{ order.order_number }}</h3>
+              <h3>
+                {{ order.order_number }}
+                @if (isNewOrder(order.id)) {
+                  <span class="new-badge">NOUVELLE</span>
+                }
+              </h3>
               <span class="order-type">{{ order.order_type === 'emporter' ? 'À emporter' : 'Sur place' }}</span>
               <span class="badge" [class]="getStatusBadgeClass(order.status)">
                 {{ getStatusLabel(order.status) }}

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient, RealtimeChannel } from '@supabase/supabase-js';
 import { SimplifiedRecipe } from '../interfaces';
+import { Subject, Observable } from 'rxjs';
 
 interface OrderInsert {
   items: SimplifiedRecipe[];
@@ -20,17 +21,54 @@ interface OrderResponse {
   created_at: string;
 }
 
+export type OrderChangeEvent = {
+  eventType: 'INSERT' | 'UPDATE' | 'DELETE';
+  new: OrderResponse | null;
+  old: OrderResponse | null;
+};
+
 @Injectable({
   providedIn: 'root'
 })
 export class SupabaseApiService {
   private supabase: SupabaseClient;
+  private ordersChannel: RealtimeChannel | null = null;
+  private orderChanges$ = new Subject<OrderChangeEvent>();
 
   constructor() {
     const supabaseUrl = 'https://spyaoxtsznaodazdvajw.supabase.co';
     const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNweWFveHRzem5hb2RhemR2YWp3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA2NDU2NDEsImV4cCI6MjA3NjIyMTY0MX0.IRI83qpDKifTJ2N0VR-Jye2bH3mLubJavXXkOVSMxMc';
 
     this.supabase = createClient(supabaseUrl, supabaseKey);
+  }
+
+  subscribeToOrders(): Observable<OrderChangeEvent> {
+    if (!this.ordersChannel) {
+      this.ordersChannel = this.supabase
+        .channel('orders-changes')
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'orders' },
+          (payload: any) => {
+            const event: OrderChangeEvent = {
+              eventType: payload.eventType,
+              new: payload.new as OrderResponse | null,
+              old: payload.old as OrderResponse | null
+            };
+            this.orderChanges$.next(event);
+          }
+        )
+        .subscribe();
+    }
+
+    return this.orderChanges$.asObservable();
+  }
+
+  unsubscribeFromOrders(): void {
+    if (this.ordersChannel) {
+      this.supabase.removeChannel(this.ordersChannel);
+      this.ordersChannel = null;
+    }
   }
 
   async saveOrder(
