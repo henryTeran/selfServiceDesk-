@@ -3,9 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { firstValueFrom, Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { APIService } from '../../services/api.service';
-import { FirebaseApiService } from '../../services/firebase-api.service';
+import { SupabaseApiService } from '../../services/supabase-api.service';
 import { CartStore } from '../../services/cart-store.service';
 import { NotificationService } from '../../services/notifications/notification.service';
+import { ChoiseService } from '../../services/choise.service';
 import { Category, Recipe, Restaurant, SimplifiedRecipe } from '../../interfaces';
 import { HeaderComponent } from '../../components/header/header.component';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
@@ -35,9 +36,10 @@ export class OrderPage implements OnInit {
 
   constructor(
     private readonly _apiService: APIService,
-    private readonly _firebaseService: FirebaseApiService,
+    private readonly _supabaseService: SupabaseApiService,
     private readonly _cartStore: CartStore,
     private readonly _notificationService: NotificationService,
+    private readonly _choiseService: ChoiseService,
     private readonly _activatedRoute: ActivatedRoute
   ) { }
 
@@ -72,7 +74,7 @@ export class OrderPage implements OnInit {
 
   async saveOrder(recipes: Recipe[]): Promise<void> {
     if (recipes.length === 0) {
-      this._notificationService.show('Le panier est vide !');
+      this._notificationService.warning('Le panier est vide !');
       return;
     }
 
@@ -85,12 +87,16 @@ export class OrderPage implements OnInit {
     }));
 
     try {
-      await this._firebaseService.saveOrder(orderDataFormat);
-      this._notificationService.show('Commande envoyée avec succès !');
-      this._cartStore.clear();
+      const orderType = await firstValueFrom(this._choiseService.choise$) || 'emporter';
+      const result = await this._supabaseService.saveOrder(orderDataFormat, orderType);
+
+      if (result) {
+        this._notificationService.success(`Commande ${result.order_number} envoyée avec succès !`);
+        this._cartStore.clear();
+      }
     } catch (error) {
       console.error('Erreur lors de l\'enregistrement de la commande :', error);
-      this._notificationService.show('Erreur lors de l\'envoi de la commande');
+      this._notificationService.error('Erreur lors de l\'envoi de la commande');
     }
   }
 }

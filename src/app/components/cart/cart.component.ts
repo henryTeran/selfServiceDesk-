@@ -26,7 +26,7 @@ export class CartComponent {
 
   removeFromCart(recipe: Recipe): void {
     this.cartStore.remove(recipe.uuid);
-    this._notificationService.show(`${recipe.title} retiré du panier !`);
+    this._notificationService.info(`${recipe.title} retiré du panier !`);
   }
 
   saveOrderFromCart(): void {

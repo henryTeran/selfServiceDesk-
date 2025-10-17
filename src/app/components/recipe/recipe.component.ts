@@ -17,9 +17,7 @@ export class RecipeComponent {
   constructor(private notificationService: NotificationService) {}
 
   addToCart(recipe: Recipe) {
-    this.selectRecipe.emit(recipe);  
-    this.notificationService.show(`${recipe.title} ajouté au panier !`);
-    console.log(this.notificationService.messages)
-
+    this.selectRecipe.emit(recipe);
+    this.notificationService.success(`${recipe.title} ajouté au panier !`);
   }
 }

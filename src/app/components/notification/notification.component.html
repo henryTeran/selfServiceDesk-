@@ -1,7 +1,7 @@
 <div class="notification-container">
-    @for (message of notificationService.messages; track message) {
-      <div class="notification">
-        {{ message }}
+    @for (notification of notificationService.notifications(); track notification.id) {
+      <div class="notification" [class]="'notification-' + notification.type">
+        {{ notification.message }}
       </div>
     }
   </div>
