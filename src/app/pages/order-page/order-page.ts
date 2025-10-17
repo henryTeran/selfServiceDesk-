@@ -12,13 +12,15 @@ import { Category, Recipe, Restaurant, SimplifiedRecipe, CartItem } from '../../
 import { CartComponent } from '../../components/cart/cart.component';
 import { NotificationComponent } from '../../components/notification/notification.component';
 import { ProductQuantityModalComponent } from '../../components/product-quantity-modal/product-quantity-modal.component';
+import { PricePipe } from '../../pipes/price.pipe';
 
 @Component({
   selector: 'app-order-page',
   imports: [
     CommonModule,
     CartComponent,
-    NotificationComponent
+    NotificationComponent,
+    PricePipe
   ],
   templateUrl: './order-page.html',
   styleUrls: ['./order-page.css']

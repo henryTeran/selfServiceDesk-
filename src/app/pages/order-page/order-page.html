@@ -60,7 +60,7 @@
               <h3>{{ recipe.title }}</h3>
               <p class="product-description">{{ recipe.description }}</p>
               <div class="product-footer">
-                <span class="price">{{ recipe.price.toFixed(2) }} CHF</span>
+                <span class="price">{{ recipe.price | price }}</span>
               </div>
             </div>
           </article>
