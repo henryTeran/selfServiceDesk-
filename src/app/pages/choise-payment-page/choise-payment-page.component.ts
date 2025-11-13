@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CartStore } from '../../services/cart-store.service';
-import { SupabaseApiService } from '../../services/supabase-api.service';
+import { FirebeseApiService } from '../../services/firebese-api.service';
 import { NotificationService } from '../../services/notifications/notification.service';
 import { ChoiseService } from '../../services/choise.service';
 import { firstValueFrom } from 'rxjs';
@@ -27,7 +27,7 @@ export class ChoisePaymentPageComponent implements OnInit {
     private readonly router: Router,
     private readonly route: ActivatedRoute,
     private readonly cartStore: CartStore,
-    private readonly supabaseService: SupabaseApiService,
+    private readonly firebaseService: FirebeseApiService,
     private readonly notificationService: NotificationService,
     private readonly choiseService: ChoiseService
   ) {}
@@ -68,7 +68,7 @@ export class ChoisePaymentPageComponent implements OnInit {
       const orderType = await firstValueFrom(this.choiseService.choise$) || 'emporter';
       const paymentMethodLabel = this.selectedMethod === 'card' ? 'Carte bancaire' : 'Caisse';
 
-      const result = await this.supabaseService.saveOrder(
+      const result = await this.firebaseService.saveOrder(
         orderDataFormat,
         orderType,
         paymentMethodLabel

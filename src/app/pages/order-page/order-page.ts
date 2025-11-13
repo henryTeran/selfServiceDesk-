@@ -4,7 +4,7 @@ import { firstValueFrom, Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { ModalController } from '@ionic/angular/standalone';
 import { APIService } from '../../services/api.service';
-import { SupabaseApiService } from '../../services/supabase-api.service';
+import { FirebeseApiService } from '../../services/firebese-api.service';
 import { CartStore } from '../../services/cart-store.service';
 import { NotificationService } from '../../services/notifications/notification.service';
 import { ChoiseService } from '../../services/choise.service';
@@ -37,7 +37,7 @@ export class OrderPage implements OnInit {
 
   constructor(
     private readonly _apiService: APIService,
-    private readonly _supabaseService: SupabaseApiService,
+    private readonly _firebeseService: FirebeseApiService,
     private readonly _cartStore: CartStore,
     private readonly _notificationService: NotificationService,
     private readonly _choiseService: ChoiseService,
@@ -117,7 +117,7 @@ export class OrderPage implements OnInit {
 
     try {
       const orderType = await firstValueFrom(this._choiseService.choise$) || 'emporter';
-      const result = await this._supabaseService.saveOrder(orderDataFormat, orderType);
+      const result = await this._firebeseService.saveOrder(orderDataFormat, orderType);
 
       if (result) {
         this._notificationService.success(`Commande ${result.order_number} envoyée avec succès !`);

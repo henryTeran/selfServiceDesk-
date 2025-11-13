@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { SupabaseApiService } from '../../services/supabase-api.service';
+import { FirebeseApiService } from '../../services/firebese-api.service';
 import { NotificationService } from '../../services/notifications/notification.service';
 import { PricePipe } from '../../pipes/price.pipe';
 
@@ -46,10 +46,10 @@ export class AdminOrdersPageComponent implements OnInit, OnDestroy {
   private notificationAudio?: HTMLAudioElement;
 
   constructor(
-    private readonly _supabaseService: SupabaseApiService,
+    private readonly _firebaseService: FirebeseApiService,
     private readonly _notificationService: NotificationService
   ) {
-    this.notificationAudio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwNUrDn77ljHQU1mdXyy3krBSh+zPLaizsIGGS66+qhThELTKXh8bllHAUuhc/y1YU2Bhxru+7mnEwNC1Ct5O+2Yh0FNZrV8st5KwUofsvx2Ys7Bxlku+vtoU4RC0yl4fG5ZRwFL4XP8tWFNgYca7vu5pxMDQtQreTvtmIdBTWa1fLLeSsFKH7L8dmLOwcZZLvr7aFOEQtMpeHxuWUcBS+Fz/LVhTYGHGu77uacTA0LUK3k77ZiHQU1mtXyy3krBSh+y/HZizsHGWS76+2hThELTKXh8bllHAUvhc/y1YU2Bhxru+7mnEwNC1Ct5O+2Yh0FNZrV8st5KwUofsvx2Ys7Bxlku+vtoU4RC0yl4fG5ZRwFL4XP8tWFNgYca7vu5pxMDQtQreTvtmIdBTWa1fLLeSsFKH7L8dmLOwcZZLvr7aFOEQtMpeHxuWUcBS+Fz/LVhTYGHGu77uacTA0LUK3k77ZiHQU1mtXyy3krBSh+y/HZizsHGWS76+2hThELTKXh8bllHAUvhc/y1YU2Bhxru+7mnEwNC1Ct5O+2Yh0FNZrV8st5KwUofsvx2Ys7Bxlku+vtoU4RC0yl4fG5ZRwFL4XP8tWFNgYca7vu5pxMDQtQreTvtmIdBTWa1fLLeSsFKH7L8dmLOwcZZLvr7aFOEQtMpeHxuWUcBS+Fz/LVhTYGHGu77uacTA0LUK3k77ZiHQU1mtXyy3krBSh+y/HZizsHGWS76+2hThELTKXh8bllHAUvhc/y1YU2Bhxru+7mnEwNC1Ct5O+2Yh0FNZrV8st5KwUofsvx2Ys7Bxlku+vtoU4RC0yl4fG5ZRwFL4XP8tWFNgYca7vu5pxMDQtQreTvtmIdBTWa1fLLeSsFKH7L8dmLOwcZZLvr7aFOEQtMpeHxuWUcBS+Fz/LVhTYGHGu77uacTA0LUK3k77ZiHQU1mtXyy3krBSh+y/HZizsHGWS76+2hThELTKXh8bllHAUvhc/y1YU2Bhxru+7mnEwNC1Ct5O+2Yh0FNZrV8st5KwUofsvx2Ys7Bxlku+vtoU4RC0yl4fG5ZRwFL4XP8tWFNgYca7vu5pxMDQtQreTvtmIdBTWa1fLLeSsFKH7L8dmLOwcZZLvr7aFOEQtMpeHxuWUcBS+Fz/LVhTYGHGu77uacTA0LUK3k77ZiHQU1mtXyy3krBSh+y/HZizsHGWS76+2hThELTKXh8bllHAUvhc/y1YU2Bhxru+7mnEwNC1Ct5O+2Yh0FNZrV8st5KwUofsvx2Ys7Bxlku+vtoU4RC0yl4fG5ZRwFL4XP8tWFNgYca7vu5pxMDQtQreTvtmId');
+    this.notificationAudio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwNUrDn77ljHQU1mdXyy3krBSh+zPLaizsIGGS66+qhThELTKXh8bllHAUuhc/y1YU2Bhxru+7mnEwNC1Ct5O+2Yh0FNZrV8st5KwUofsvx2Ys7Bxlku+vtoU4RC0yl4fG5ZRwFL4XP8tWFNgYca7vu5pxMDQtQreTvtmIdBTWa1fLLeSsFKH7L8dmLOwcZZLvr7aFOEQtMpeHxuWUcBS+Fz/LVhTYGHGu77uacTA0LUK3k77ZiHQU1mtXyy3krBSh+y/HZizsHGWS76+2hThELTKXh8bllHAUvhc/y1YU2Bhxru+7mnEwNC1Ct5O+2Yh0FNZrV8st5KwUofsvx2Ys7Bxlku+vtoU4RC0yl4fG5ZRwFL4XP8tWFNgYca7vu5pxMDQtQreTvtmIdBTWa1fLLeSsFKH7L8dmLOwcZZLvr7aFOEQtMpeHxuWUcBS+Fz/LVhTYGHGu77uacTA0LUK3k77ZiHQU1mtXyy3krBSh+y/HZizsHGWS76+2hThELTKXh8bllHAUvhc/y1YU2Bhxru+7mnEwNC1Ct5O+2Yh0FNZrV8st5KwUofsvx2Ys7Bxlku+vtoU4RC0yl4fG5ZRwFL4XP8tWFNgYca7vu5pxMDQtQreTvtmIdBTWa1fLLeSsFKH7L8dmLOwcZZLvr7aFOEQtMpeHxuWUcBS+Fz/LVhTYGHGu77uacTA0LUK3k77ZiHQU1mtXyy3krBSh+y/HZizsHGWS76+2hThELTKXh8bllHAUvhc/y1YU2Bhxru+7mnEwNC1Ct5O+2Yh0FNZrV8st5KwUofsvx2Ys7Bxlku+vtoU4RC0yl4fG5ZRwFL4XP8tWFNgYca7vu5pxMDQtQreTvtmId');
   }
 
   async ngOnInit(): Promise<void> {
@@ -61,11 +61,11 @@ export class AdminOrdersPageComponent implements OnInit, OnDestroy {
     if (this.realtimeSubscription) {
       this.realtimeSubscription.unsubscribe();
     }
-    this._supabaseService.unsubscribeFromOrders();
+    this._firebaseService.unsubscribeFromOrders();
   }
 
   private setupRealtimeSubscription(): void {
-    this.realtimeSubscription = this._supabaseService.subscribeToOrders().subscribe(event => {
+    this.realtimeSubscription = this._firebaseService.subscribeToOrders().subscribe(event => {
       if (event.eventType === 'INSERT' && event.new) {
         this.handleNewOrder(event.new as Order);
       } else if (event.eventType === 'UPDATE' && event.new) {
@@ -128,7 +128,7 @@ export class AdminOrdersPageComponent implements OnInit, OnDestroy {
   async loadOrders(): Promise<void> {
     this.isLoading.set(true);
     try {
-      const data = await this._supabaseService.getOrders();
+      const data = await this._firebaseService.getOrders();
       this.orders.set(data);
       this.applyFilter();
       this._notificationService.success(`${data.length} commandes chargées`);
@@ -203,7 +203,7 @@ export class AdminOrdersPageComponent implements OnInit, OnDestroy {
     }
 
     try {
-      await this._supabaseService.updateOrderStatus(order.id, 'validated');
+      await this._firebaseService.updateOrderStatus(order.id, 'validated');
       this._notificationService.success(`Commande ${order.order_number} validée ✅`);
 
       const currentState = this.itemValidationState();
@@ -220,7 +220,7 @@ export class AdminOrdersPageComponent implements OnInit, OnDestroy {
 
   async updateOrderStatus(orderId: string, newStatus: string): Promise<void> {
     try {
-      await this._supabaseService.updateOrderStatus(orderId, newStatus);
+      await this._firebaseService.updateOrderStatus(orderId, newStatus);
       this._notificationService.success(`Commande mise à jour : ${this.getStatusLabel(newStatus)}`);
       await this.loadOrders();
     } catch (error) {

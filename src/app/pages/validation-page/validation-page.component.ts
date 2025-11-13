@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
-import { SupabaseApiService } from '../../services/supabase-api.service';
+import { FirebeseApiService } from '../../services/firebese-api.service';
 import { PricePipe } from '../../pipes/price.pipe';
 
 interface OrderReceipt {
@@ -28,7 +28,7 @@ export class ValidationPageComponent implements OnInit {
   constructor(
     private readonly router: Router,
     private readonly route: ActivatedRoute,
-    private readonly supabaseService: SupabaseApiService
+    private readonly firebaseService: FirebeseApiService
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -41,7 +41,7 @@ export class ValidationPageComponent implements OnInit {
     }
 
     try {
-      const orderData = await this.supabaseService.getOrderById(orderId);
+      const orderData = await this.firebaseService.getOrderById(orderId);
       if (orderData) {
         this.order = orderData as OrderReceipt;
       }
