@@ -6,6 +6,7 @@
     "generate-env": "ts-node generate-env.ts",
     "start": "npm run generate-env && ng serve",
     "build": "ng build",
+    "build:prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
